@@ -1,0 +1,164 @@
+<!-- The Executive — Corporate / Finance -->
+<div id="resume-preview-content" class="bg-white w-[210mm] min-h-[297mm] mx-auto shadow-2xl" style="font-family:'Playfair Display',Georgia,serif;">
+  <div class="px-12 py-10">
+
+    <!-- Header -->
+    <header class="text-center mb-8 pb-6 border-b-2 border-slate-800">
+      <h1 class="text-3xl font-bold text-slate-900 tracking-wide" style="font-family:'Playfair Display',Georgia,serif;">{{ data.basics.name|default:"Your Name" }}</h1>
+      <div class="flex items-center justify-center gap-4 mt-3 flex-wrap">
+        {% if data.basics.email %}
+        <span class="text-[12px] text-slate-500" style="font-family:'Inter',sans-serif;">{{ data.basics.email }}</span>
+        {% endif %}
+        {% if data.basics.phone %}
+        <span class="text-[12px] text-slate-400">|</span>
+        <span class="text-[12px] text-slate-500" style="font-family:'Inter',sans-serif;">{{ data.basics.phone }}</span>
+        {% endif %}
+        {% if data.basics.linkedin %}
+        <span class="text-[12px] text-slate-400">|</span>
+        <span class="text-[12px] text-slate-500" style="font-family:'Inter',sans-serif;">{{ data.basics.linkedin }}</span>
+        {% endif %}
+        {% if data.basics.address %}
+        <span class="text-[12px] text-slate-400">|</span>
+        <span class="text-[12px] text-slate-500" style="font-family:'Inter',sans-serif;">{{ data.basics.address }}</span>
+        {% endif %}
+      </div>
+    </header>
+
+    <!-- Professional Summary -->
+    {% if data.basics.summary %}
+    <section class="mb-7">
+      <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Executive Summary</h2>
+      <p class="text-[13px] text-slate-600 leading-[1.8] italic" style="font-family:'Inter',sans-serif;">{{ data.basics.summary }}</p>
+    </section>
+    {% endif %}
+
+    <!-- Experience -->
+    {% if data.experience %}
+    <section class="mb-5">
+      <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Professional Experience</h2>
+      {% for exp in data.experience %}
+      <div class="mb-4" style="break-inside: avoid;">
+        <div class="flex justify-between items-baseline mb-1">
+          <h3 class="text-[14px] font-bold text-slate-900" style="font-family:'Playfair Display',Georgia,serif;">{{ exp.designation }}</h3>
+          <span class="text-[11px] text-slate-400 italic" style="font-family:'Inter',sans-serif;">{{ exp.tenure }}</span>
+        </div>
+        <p class="text-[11.5px] text-slate-600 font-semibold mb-1" style="font-family:'Inter',sans-serif;">{{ exp.company }}</p>
+        <p class="text-[11.5px] text-slate-500 leading-[1.6]" style="font-family:'Inter',sans-serif;">{{ exp.description }}</p>
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- Education -->
+    {% if data.education %}
+    <section class="mb-5">
+      <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Education</h2>
+      {% for edu in data.education %}
+      <div class="mb-2 flex justify-between items-baseline" style="break-inside: avoid;">
+        <div>
+          <h3 class="text-[13px] font-bold text-slate-800" style="font-family:'Playfair Display',Georgia,serif;">{{ edu.degree }}</h3>
+          <p class="text-[11.5px] text-slate-500" style="font-family:'Inter',sans-serif;">{{ edu.institution }}{% if edu.percentage %} — {{ edu.percentage }}%{% endif %}</p>
+        </div>
+        {% if edu.year %}
+        <span class="text-[11px] text-slate-400 italic" style="font-family:'Inter',sans-serif;">{{ edu.year }}</span>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- Two-column: Skills & Languages -->
+    <div class="grid grid-cols-2 gap-8 mb-7">
+      <!-- Technical Skills -->
+      {% if data.skills.technical %}
+      <section>
+        <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Core Competencies</h2>
+        <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+          {% for skill in data.skills.technical %}
+          <span class="text-[11px] text-slate-600 flex items-center gap-1.5" style="font-family:'Inter',sans-serif;">
+            <span class="w-1 h-1 bg-slate-800 rounded-full"></span>{{ skill }}
+          </span>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <!-- Soft Skills -->
+      {% if data.skills.soft %}
+      <section>
+        <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Leadership Skills</h2>
+        <div class="grid grid-cols-1 gap-y-1">
+          {% for skill in data.skills.soft %}
+          <span class="text-[11px] text-slate-600 flex items-center gap-1.5" style="font-family:'Inter',sans-serif;">
+            <span class="w-1 h-1 bg-slate-800 rounded-full"></span>{{ skill }}
+          </span>
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- Projects -->
+    {% if data.projects %}
+    <section class="mb-5">
+      <h2 class="text-[15px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Notable Projects</h2>
+      {% for project in data.projects %}
+      <div class="mb-3" style="break-inside: avoid;">
+        <h3 class="text-[13px] font-bold text-slate-800" style="font-family:'Playfair Display',Georgia,serif;">{{ project.name }}</h3>
+        <p class="text-[11.5px] text-slate-500 leading-[1.6]" style="font-family:'Inter',sans-serif;">{{ project.description }}</p>
+      </div>
+      {% endfor %}
+    </section>
+    {% endif %}
+
+    <!-- Certifications -->
+    {% if data.certifications %}
+    <section class="mb-7">
+      <h2 class="text-[13px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Certifications & Awards</h2>
+      <ul class="space-y-1">
+        {% for cert in data.certifications %}
+        <li class="text-[10px] text-slate-600 flex items-center gap-2" style="font-family:'Inter',sans-serif;">
+          <span class="w-1 h-1 bg-slate-800 rounded-full"></span>{{ cert }}
+        </li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <!-- Languages & Activities -->
+    <div class="grid grid-cols-2 gap-8">
+      {% if data.languages %}
+      <section>
+        <h2 class="text-[13px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Languages</h2>
+        <ul class="space-y-1">
+          {% for lang in data.languages %}
+          <li class="text-[10px] text-slate-600" style="font-family:'Inter',sans-serif;">{{ lang }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+
+      {% if data.extracurricular %}
+      <section>
+        <h2 class="text-[13px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Activities</h2>
+        <ul class="space-y-1">
+          {% for activity in data.extracurricular %}
+          <li class="text-[10px] text-slate-600" style="font-family:'Inter',sans-serif;">{{ activity }}</li>
+          {% endfor %}
+        </ul>
+      </section>
+      {% endif %}
+    </div>
+
+    <!-- Interests -->
+    {% if data.interests %}
+    <section class="mt-6">
+      <h2 class="text-[13px] font-bold uppercase tracking-[4px] text-slate-800 mb-3 border-b border-slate-300 pb-1.5" style="font-family:'Playfair Display',Georgia,serif;">Interests</h2>
+      <p class="text-[10px] text-slate-500" style="font-family:'Inter',sans-serif;">
+        {% for interest in data.interests %}{{ interest }}{% if not forloop.last %} · {% endif %}{% endfor %}
+      </p>
+    </section>
+    {% endif %}
+
+  </div>
+</div>

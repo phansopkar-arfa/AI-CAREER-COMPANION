@@ -1,0 +1,54 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Career Path Time Machine | AI Career Companion{% endblock %}
+{% block header_title %}Career Path Time Machine{% endblock %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto space-y-10 pb-20">
+    <!-- Header/Introduction -->
+    <div class="text-center space-y-4">
+        <h2 class="heading-1 bg-gradient-to-r from-brand-600 to-indigo-600 bg-clip-text text-transparent">Career Path Time Machine</h2>
+        <p class="text-slate-500 max-w-2xl mx-auto">Project your professional trajectory 10 years into the future. Our AI analyzes your current skills and test performance to build a realistic roadmap to your dream role.</p>
+    </div>
+
+    <!-- Generator Input Card -->
+    <div class="stitch-card max-w-2xl mx-auto border-t-4 border-t-brand-500">
+        <form hx-post="{% url 'generate_roadmap' %}" 
+              hx-target="#roadmap-status" 
+              hx-indicator="#loading-indicator"
+              class="space-y-6">
+            {% csrf_token %}
+            <div class="space-y-2">
+                <label class="text-sm font-bold text-slate-700 uppercase tracking-wider">What is your Dream Role?</label>
+                <div class="flex gap-3">
+                    <input type="text" name="dream_role" placeholder="e.g. Principal AI Engineer" required
+                           class="input-field flex-1">
+                    <button type="submit" class="btn-primary group whitespace-nowrap">
+                        Generate Path 
+                        <span class="inline-block transition-transform group-hover:translate-x-1">🚀</span>
+                    </button>
+                </div>
+            </div>
+        </form>
+        
+        <!-- Loading State -->
+        <div id="loading-indicator" class="htmx-indicator mt-8 text-center space-y-4">
+            <div class="flex justify-center">
+                <div class="w-12 h-12 border-4 border-brand-200 border-t-brand-600 rounded-full animate-spin"></div>
+            </div>
+            <p class="text-sm font-medium text-slate-500 animate-pulse uppercase tracking-widest">Analyzing Career Trajectory...</p>
+        </div>
+    </div>
+
+    <!-- Roadmap Output Container -->
+    <div id="roadmap-status">
+        {% if roadmap %}
+            {% include "accounts/partials/roadmap_content.html" with roadmap=roadmap %}
+        {% else %}
+            <div class="text-center py-20 opacity-40">
+                <div class="text-6xl mb-4">⌛</div>
+                <p class="font-medium tracking-wide">Enter a dream role above to visualize your future.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

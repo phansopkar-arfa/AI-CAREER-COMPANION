@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Sign In | Career Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f5f7ff',
+                            100: '#ebf0ff',
+                            200: '#d6e0ff',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                        }
+                    },
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .input-focus:focus { border-color: #6366f1; box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1); }
+        .btn-glow:hover { box-shadow: 0 0 20px rgba(99, 102, 241, 0.4); }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+    <!-- Abstract Background Elements -->
+    <div class="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-brand-200/30 rounded-full blur-[120px]"></div>
+    <div class="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] bg-indigo-200/30 rounded-full blur-[120px]"></div>
+
+    <div class="w-full max-w-[440px] relative z-10 space-y-8">
+        <!-- Logo/Header -->
+        <div class="flex flex-col items-center text-center space-y-4">
+            <div class="w-16 h-16 bg-brand-600 rounded-3xl flex items-center justify-center text-white text-3xl shadow-xl shadow-brand-500/20 font-outfit">
+                🎓
+            </div>
+            <div>
+                <h1 class="text-3xl font-black text-slate-900 font-outfit tracking-tight">Welcome Back</h1>
+                <p class="text-slate-500 text-sm mt-2 font-medium">Access your Career Companion dashboard</p>
+            </div>
+        </div>
+
+        <!-- Card Container -->
+        <div class="glass bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-slate-200/50">
+            <form method="POST" action="{% url 'login' %}" class="space-y-6">
+                {% csrf_token %}
+                
+                {% if form.non_field_errors %}
+                    <div class="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-2xl text-xs font-bold fade-in">
+                        {{ form.non_field_errors }}
+                    </div>
+                {% endif %}
+
+                <!-- Email Field -->
+                <div class="space-y-2">
+                    <label class="block text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Email ID</label>
+                    <div class="relative group">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" /></svg>
+                        </span>
+                        <input type="email" name="username" required
+                               class="w-full bg-slate-50 border border-slate-100 pl-12 pr-4 py-4 rounded-2xl text-sm font-medium text-slate-900 outline-none transition-all input-focus" 
+                               placeholder="name@college.edu">
+                    </div>
+                    {% for error in form.username.errors %}
+                        <p class="text-[10px] text-red-500 font-bold ml-1 uppercase">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-2">
+                    <label class="block text-[11px] font-black text-slate-400 uppercase tracking-widest ml-1">Password</label>
+                    <div class="relative group">
+                        <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-brand-500 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg>
+                        </span>
+                        <input type="password" name="password" required
+                               class="w-full bg-slate-50 border border-slate-100 pl-12 pr-4 py-4 rounded-2xl text-sm font-medium text-slate-900 outline-none transition-all input-focus" 
+                               placeholder="••••••••">
+                    </div>
+                    {% for error in form.password.errors %}
+                        <p class="text-[10px] text-red-500 font-bold ml-1 uppercase">{{ error }}</p>
+                    {% endfor %}
+                </div>
+
+                <div class="flex items-center justify-end">
+                    <a href="{% url 'password_reset' %}" class="text-[11px] font-black text-brand-600 uppercase tracking-widest hover:text-brand-700 transition-colors">Forgot Password?</a>
+                </div>
+
+                <button type="submit" 
+                        class="w-full bg-brand-600 text-white py-4 rounded-2xl font-black text-sm uppercase tracking-widest shadow-xl shadow-brand-500/20 hover:bg-brand-700 transition-all active:scale-[0.98] btn-glow">
+                    Sign In
+                </button>
+            </form>
+
+            <div class="mt-10 pt-8 border-t border-slate-50 text-center">
+                <p class="text-sm text-slate-500 font-medium">
+                    Don't have an account? 
+                    <a href="{% url 'register' %}" class="text-brand-600 font-bold ml-1 hover:underline decoration-2 underline-offset-4">Create Account</a>
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+</html>

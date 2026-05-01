@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}AI Career Companion{% endblock %}</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS (Stitch UI setup) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f0f4ff',
+                            100: '#e0e9ff',
+                            200: '#c7d2fe',
+                            300: '#a5b4fc',
+                            400: '#818cf8',
+                            500: '#6366f1',
+                            600: '#4f46e5',
+                            700: '#4338ca',
+                            800: '#3730a3',
+                            900: '#312e81',
+                            950: '#1e1b4b',
+                        }
+                    },
+                    boxShadow: {
+                        'soft': '0 4px 24px -2px rgba(0, 0, 0, 0.04)',
+                        'glow': '0 0 20px rgba(99, 102, 241, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer components {
+            .stitch-card {
+                @apply bg-white rounded-2xl border border-slate-100 shadow-soft p-6 transition-all duration-300 hover:shadow-md hover:border-slate-200;
+            }
+            .btn-primary {
+                @apply bg-brand-600 text-white font-bold px-6 py-2.5 rounded-xl shadow-sm hover:bg-brand-700 hover:shadow-glow transition-all duration-300 active:scale-95;
+            }
+            .btn-secondary {
+                @apply bg-white text-slate-700 border border-slate-200 font-bold px-6 py-2.5 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-300;
+            }
+            .input-field {
+                @apply w-full bg-slate-50 border border-slate-200 text-slate-800 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-brand-500/10 focus:border-brand-500 transition-all duration-300;
+            }
+            .heading-1 {
+                @apply text-3xl font-black text-slate-900 tracking-tight font-outfit;
+            }
+            .heading-2 {
+                @apply text-xl font-bold text-slate-800 font-outfit;
+            }
+            .nav-item {
+                @apply flex items-center gap-3 px-4 py-3 rounded-xl font-semibold text-slate-500 transition-all duration-300 hover:bg-slate-50 hover:text-brand-600;
+            }
+            .nav-item.active {
+                @apply bg-brand-50 text-brand-600 border border-brand-100;
+            }
+
+            /* 1. Sidebar Foundation (No transition by default to stop flicker) */
+            #main-sidebar {
+                width: 250px;
+                transition: none;
+            }
+
+            /* 2. Expanded State (Default) */
+            .nav-label, .logo-text, .user-text, .nav-header-text {
+                max-width: 200px;
+                opacity: 1;
+                display: block;
+                overflow: hidden;
+                white-space: nowrap;
+                transition: none; /* No transition on page load */
+            }
+
+            /* 3. Collapsed State (Static overrides for both JS and Initial load) */
+            .sidebar-is-collapsed #main-sidebar,
+            #main-sidebar.sidebar-collapsed {
+                width: 70px !important;
+            }
+
+            .sidebar-is-collapsed .nav-label,
+            .sidebar-is-collapsed .logo-text,
+            .sidebar-is-collapsed .user-text,
+            .sidebar-is-collapsed .nav-header-text,
+            .sidebar-collapsed .nav-label,
+            .sidebar-collapsed .logo-text,
+            .sidebar-collapsed .user-text,
+            .sidebar-collapsed .nav-header-text {
+                max-width: 0 !important;
+                opacity: 0 !important;
+                margin: 0 !important;
+                pointer-events: none;
+            }
+
+            .sidebar-is-collapsed .nav-item,
+            .sidebar-collapsed .nav-item {
+                @apply justify-center px-0 mx-1 aspect-square;
+                gap: 0;
+            }
+
+            .sidebar-is-collapsed .logo-icon,
+            .sidebar-collapsed .logo-icon {
+                @apply m-0 w-10 h-10;
+                transform: scale(1.1);
+            }
+
+            .sidebar-is-collapsed .logo-container,
+            .sidebar-collapsed .logo-container {
+                @apply p-4 justify-center;
+            }
+
+            .sidebar-is-collapsed .profile-container,
+            .sidebar-collapsed .profile-container {
+                @apply p-2;
+            }
+
+            .sidebar-is-collapsed .user-card,
+            .sidebar-collapsed .user-card {
+                @apply p-2 justify-center border-none bg-transparent;
+            }
+
+            /* 4. Active Transition Hook (Only enabled during manual toggle) */
+            #main-sidebar.transitioning,
+            #main-sidebar.transitioning .nav-label,
+            #main-sidebar.transitioning .logo-text,
+            #main-sidebar.transitioning .user-text,
+            #main-sidebar.transitioning .nav-header-text,
+            #main-sidebar.transitioning .logo-icon {
+                transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            }
+        }
+
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+    </style>
+    
+    <script>
+        // Immediate Blocking script to prevent any UI flickering/shaking on boot
+        (function() {
+            const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+            if (isCollapsed) {
+                document.documentElement.classList.add('sidebar-is-collapsed');
+            }
+        })();
+    </script>
+    
+    {% block extra_head %}{% endblock %}
+</head>
+<body class="bg-slate-50 text-slate-600 font-sans antialiased h-screen overflow-hidden flex">
+
+    <!-- Unified Fixed Sidebar -->
+    <aside id="main-sidebar" class="bg-white border-r border-slate-100 flex flex-col h-full shrink-0 relative z-20 shadow-[1px_0_15px_rgba(0,0,0,0.02)] backdrop-blur-md bg-white/90">
+        <!-- Toggle Button (Modern Floating Style) -->
+        <button id="sidebar-toggle" class="absolute -right-3 top-8 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-[10px] shadow-md hover:shadow-lg hover:border-brand-300 transition-all z-30 text-slate-400 hover:text-brand-600 group active:scale-90">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 transition-transform duration-500 group-[.sidebar-collapsed]:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+
+        <div class="logo-container p-8 flex items-center gap-3 transition-all duration-300 whitespace-nowrap overflow-hidden">
+            <div class="logo-icon w-9 h-9 bg-brand-600 rounded-xl flex items-center justify-center text-white text-xl shrink-0 shadow-glow transition-all duration-300">🎓</div>
+            <div class="logo-text overflow-hidden transition-all duration-300">
+                <p class="text-sm font-black text-slate-800 leading-none">Career Companion</p>
+                <p class="text-[9px] text-slate-400 font-bold uppercase mt-1 tracking-tighter">Student Edition</p>
+            </div>
+        </div>
+        
+        <nav class="flex-1 px-3 space-y-1 overflow-y-auto pt-2 overflow-x-hidden">
+            <div class="px-4 py-2 nav-header-text">
+                <p class="text-[9px] font-black text-slate-400 uppercase tracking-widest whitespace-nowrap">Main Menu</p>
+            </div>
+            <a href="{% url 'home' %}" class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}" title="Overview">
+                <span class="text-xl opacity-70 group-hover:opacity-100 transition-all">🏠</span> 
+                <span class="nav-label transition-all duration-300">Overview</span>
+            </a>
+            <a href="{% url 'resume_editor' %}" class="nav-item {% if request.resolver_match.url_name == 'resume_editor' %}active{% endif %}" title="Resume Builder">
+                <span class="text-xl opacity-70 group-hover:opacity-100 transition-all">📄</span> 
+                <span class="nav-label transition-all duration-300">Resume Builder</span>
+            </a>
+            <a href="{% url 'career_test' %}" class="nav-item {% if request.resolver_match.url_name == 'career_test' %}active{% endif %}" title="Assessments">
+                <span class="text-xl opacity-70 group-hover:opacity-100 transition-all">📝</span> 
+                <span class="nav-label transition-all duration-300">Assessments</span>
+            </a>
+            <a href="{% url 'dashboard' %}" class="nav-item {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" title="Global Analytics">
+                <span class="text-xl opacity-70 group-hover:opacity-100 transition-all">📊</span> 
+                <span class="nav-label transition-all duration-300">Global Analytics</span>
+            </a>
+            <a href="{% url 'mock_interview_page' %}" class="nav-item {% if request.resolver_match.url_name == 'mock_interview_page' %}active{% endif %}" title="Mock Interview">
+                <span class="text-xl opacity-70 group-hover:opacity-100 transition-all">🎤</span> 
+                <span class="nav-label transition-all duration-300">Mock Interview</span>
+            </a>
+        </nav>
+        
+        <div class="profile-container p-5 mt-auto border-t border-slate-100 overflow-hidden">
+            {% if user.is_authenticated %}
+            <div class="user-card bg-slate-50/80 rounded-2xl p-3 border border-slate-100 flex items-center gap-3 transition-all duration-300">
+                <div class="w-8 h-8 rounded-full bg-brand-600 text-white flex items-center justify-center text-xs font-black shrink-0">
+                    {{ user.name|default:user.email|slice:":1"|upper }}
+                </div>
+                <div class="user-text overflow-hidden transition-all duration-300">
+                    <p class="text-xs font-bold text-slate-800 truncate leading-none mb-1">{{ user.name|default:user.email }}</p>
+                    <a href="{% url 'logout' %}" class="text-[10px] text-red-500 font-bold hover:underline">Sign Out</a>
+                </div>
+            </div>
+            {% else %}
+            <a href="{% url 'login' %}" class="btn-primary w-full text-center py-2 text-xs">Access Portal</a>
+            {% endif %}
+        </div>
+    </aside>
+
+    <!-- The Main Stage -->
+    <div class="flex-1 flex flex-col h-full relative overflow-hidden">
+        
+        <!-- Top Bar -->
+        <header class="h-16 bg-white border-b border-slate-100 flex items-center justify-between px-10 shrink-0">
+            <div>
+                <h2 class="text-xs font-black text-slate-400 uppercase tracking-[0.2em] font-sans">
+                    {% block header_title %}Overview{% endblock %}
+                </h2>
+            </div>
+            
+            <div class="flex items-center gap-6">
+                <!-- Resume Editor Top Panel Context -->
+                {% if request.resolver_match.url_name == 'resume_editor' %}
+                    <div class="hidden lg:flex items-center gap-4 border-r border-slate-100 pr-6 mr-6">
+                        <div class="text-right">
+                            <p class="text-[10px] font-black text-brand-600 uppercase tracking-widest leading-none">Resume Builder</p>
+                            <p class="text-[9px] text-slate-400 font-bold uppercase mt-1">Fill the facts. Convert to impact. Build your future.</p>
+                        </div>
+                    </div>
+                    <button onclick="downloadPDF()" class="btn-primary flex items-center gap-2 py-1.5 text-xs">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                        Download PDF
+                    </button>
+                {% else %}
+                    <!-- User Profile Summary (Empty/Minimal as requested) -->
+                    <div class="text-right">
+                        <p class="text-[10px] font-black text-slate-300 uppercase tracking-widest leading-none">System Active</p>
+                    </div>
+                {% endif %}
+            </div>
+        </header>
+
+        <!-- Command Content Area -->
+        <main class="flex-1 overflow-y-auto bg-slate-50" id="stage-area">
+            {% block content %}{% endblock %}
+        </main>
+    </div>
+
+    <!-- Context Chat Helper Helper -->
+    {% include "accounts/chat_widget.html" %}
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('main-sidebar');
+            const toggle = document.getElementById('sidebar-toggle');
+            
+            // Sync current state from storage to the active class
+            const isCollapsed = localStorage.getItem('sidebar-collapsed') === 'true';
+            if (isCollapsed) {
+                sidebar.classList.add('sidebar-collapsed');
+            }
+
+            toggle.addEventListener('click', () => {
+                // Enable transitions ONLY during the user action
+                sidebar.classList.add('transitioning');
+                
+                sidebar.classList.toggle('sidebar-collapsed');
+                // Also toggle the root class to keep everything in sync
+                document.documentElement.classList.toggle('sidebar-is-collapsed');
+                
+                const nowCollapsed = sidebar.classList.contains('sidebar-collapsed');
+                localStorage.setItem('sidebar-collapsed', nowCollapsed);
+                
+                // Cleanup transitioning class after animation completes
+                setTimeout(() => {
+                    sidebar.classList.remove('transitioning');
+                }, 500);
+            });
+        });
+    </script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

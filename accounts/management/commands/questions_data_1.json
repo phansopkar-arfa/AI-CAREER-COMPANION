@@ -1,0 +1,2422 @@
+{
+  "Python": [
+    {
+      "q": "What is the output of print(type([]) is list)?",
+      "a": "True",
+      "b": "False",
+      "c": "Error",
+      "d": "None",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an immutable data type in Python?",
+      "a": "List",
+      "b": "Dictionary",
+      "c": "Set",
+      "d": "Tuple",
+      "correct": "D"
+    },
+    {
+      "q": "What is the purpose of the __init__ method in Python classes?",
+      "a": "To initialize the class",
+      "b": "To initialize an instance",
+      "c": "To delete an object",
+      "d": "To define static methods",
+      "correct": "B"
+    },
+    {
+      "q": "Which keyword is used to handle exceptions in Python?",
+      "a": "catch",
+      "b": "except",
+      "c": "try-except",
+      "d": "throw",
+      "correct": "B"
+    },
+    {
+      "q": "What does the pass statement do?",
+      "a": "Terminates the loop",
+      "b": "Skips the current iteration",
+      "c": "It is a null operation",
+      "d": "Returns a value",
+      "correct": "C"
+    },
+    {
+      "q": "What is the output of 2**3**2?",
+      "a": "64",
+      "b": "512",
+      "c": "18",
+      "d": "32",
+      "correct": "B"
+    },
+    {
+      "q": "Which method is used to add an element at the end of a list?",
+      "a": "add()",
+      "b": "insert()",
+      "c": "append()",
+      "d": "push()",
+      "correct": "C"
+    },
+    {
+      "q": "What is the correct way to create a dictionary?",
+      "a": "{1, 2, 3}",
+      "b": "[1, 2, 3]",
+      "c": "(1, 2, 3)",
+      "d": "{1: 'A', 2: 'B'}",
+      "correct": "D"
+    },
+    {
+      "q": "How do you start a multi-line comment in Python?",
+      "a": "//",
+      "b": "#",
+      "c": "\"\"\"",
+      "d": "/*",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'Duck Typing' in Python?",
+      "a": "A type of inheritance",
+      "b": "Focus on behavior over type",
+      "c": "Strict type checking",
+      "d": "A library for graphics",
+      "correct": "B"
+    },
+    {
+      "q": "Which function returns the length of a string?",
+      "a": "size()",
+      "b": "length()",
+      "c": "len()",
+      "d": "count()",
+      "correct": "C"
+    },
+    {
+      "q": "What is the output of bool(0)?",
+      "a": "True",
+      "b": "False",
+      "c": "0",
+      "d": "Error",
+      "correct": "B"
+    },
+    {
+      "q": "Which operator is used for floor division?",
+      "a": "/",
+      "b": "%",
+      "c": "//",
+      "d": "**",
+      "correct": "C"
+    },
+    {
+      "q": "What is a lambda function?",
+      "a": "A named function",
+      "b": "A recursive function",
+      "c": "An anonymous function",
+      "d": "A built-in function",
+      "correct": "C"
+    },
+    {
+      "q": "How do you import a module 'math'?",
+      "a": "include math",
+      "b": "import math",
+      "c": "load math",
+      "d": "using math",
+      "correct": "B"
+    },
+    {
+      "q": "What is the output of 'Python'[1:4]?",
+      "a": "Pyt",
+      "b": "yth",
+      "c": "ytho",
+      "d": "Pyth",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is NOT a valid variable name?",
+      "a": "_my_var",
+      "b": "myVar1",
+      "c": "1myVar",
+      "d": "my_var",
+      "correct": "C"
+    },
+    {
+      "q": "What does PEP 8 refer to?",
+      "a": "A Python compiler",
+      "b": "A coding style guide",
+      "c": "A version of Python",
+      "d": "A testing framework",
+      "correct": "B"
+    },
+    {
+      "q": "What is the use of id() function?",
+      "a": "To get the value",
+      "b": "To get memory address",
+      "c": "To get the type",
+      "d": "To get the name",
+      "correct": "B"
+    },
+    {
+      "q": "Which collection is unordered and unindexed?",
+      "a": "List",
+      "b": "Tuple",
+      "c": "Dictionary",
+      "d": "Set",
+      "correct": "D"
+    },
+    {
+      "q": "What is the output of list(range(3))?",
+      "a": "[1, 2, 3]",
+      "b": "[0, 1, 2]",
+      "c": "[0, 1, 2, 3]",
+      "d": "(0, 1, 2)",
+      "correct": "B"
+    },
+    {
+      "q": "How do you define a function?",
+      "a": "func name():",
+      "b": "define name():",
+      "c": "def name():",
+      "d": "function name():",
+      "correct": "C"
+    },
+    {
+      "q": "What is __name__ in Python?",
+      "a": "A variable for user",
+      "b": "A special built-in variable",
+      "c": "A class name",
+      "d": "A file name",
+      "correct": "B"
+    },
+    {
+      "q": "Which library is used for data manipulation?",
+      "a": "Matplotlib",
+      "b": "Pandas",
+      "c": "Scikit-learn",
+      "d": "Requests",
+      "correct": "B"
+    },
+    {
+      "q": "What is a decorator?",
+      "a": "A UI element",
+      "b": "Modifies function behavior",
+      "c": "A type of list",
+      "d": "A class attribute",
+      "correct": "B"
+    },
+    {
+      "q": "What is the result of None == 0?",
+      "a": "True",
+      "b": "False",
+      "c": "Error",
+      "d": "None",
+      "correct": "B"
+    },
+    {
+      "q": "How to check if 'key' exists in dict 'd'?",
+      "a": "d.has(key)",
+      "b": "key in d",
+      "c": "key.exists(d)",
+      "d": "d.find(key)",
+      "correct": "B"
+    },
+    {
+      "q": "What is the output of 3 * 'Ab'?",
+      "a": "AbAbAb",
+      "b": "Ab3",
+      "c": "Error",
+      "d": "Ab Ab Ab",
+      "correct": "A"
+    },
+    {
+      "q": "Which keyword is used to create a generator?",
+      "a": "return",
+      "b": "provide",
+      "c": "yield",
+      "d": "generate",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'self' in Python?",
+      "a": "Static variable",
+      "b": "Reference to current object",
+      "c": "Global variable",
+      "d": "Function parameter",
+      "correct": "B"
+    }
+  ],
+  "Java": [
+    {
+      "q": "Which of the following is not a Java features?",
+      "a": "Dynamic",
+      "b": "Architecture Neutral",
+      "c": "Use of pointers",
+      "d": "Object-oriented",
+      "correct": "C"
+    },
+    {
+      "q": "What is the return type of the hashCode() method in the Object class?",
+      "a": "Object",
+      "b": "int",
+      "c": "long",
+      "d": "void",
+      "correct": "B"
+    },
+    {
+      "q": "Which package contains the Random class?",
+      "a": "java.util",
+      "b": "java.lang",
+      "c": "java.io",
+      "d": "java.net",
+      "correct": "A"
+    },
+    {
+      "q": "What is the default value of a boolean variable in Java?",
+      "a": "true",
+      "b": "false",
+      "c": "null",
+      "d": "0",
+      "correct": "B"
+    },
+    {
+      "q": "Which keyword is used to inherit a class in Java?",
+      "a": "implements",
+      "b": "inherits",
+      "c": "extends",
+      "d": "using",
+      "correct": "C"
+    },
+    {
+      "q": "What is the size of 'int' data type in Java?",
+      "a": "16-bit",
+      "b": "32-bit",
+      "c": "64-bit",
+      "d": "8-bit",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is used to access a member of a class before an object is created?",
+      "a": "protected",
+      "b": "public",
+      "c": "static",
+      "d": "private",
+      "correct": "C"
+    },
+    {
+      "q": "Which method must be implemented by all threads?",
+      "a": "wait()",
+      "b": "start()",
+      "c": "run()",
+      "d": "stop()",
+      "correct": "C"
+    },
+    {
+      "q": "What is the output of 'System.out.println(10 + 20 + \"Java\")'?",
+      "a": "Java1020",
+      "b": "30Java",
+      "c": "Java30",
+      "d": "1020Java",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these cannot be used for a variable name in Java?",
+      "a": "identifier",
+      "b": "keyword",
+      "c": "underscore",
+      "d": "none of the mentioned",
+      "correct": "B"
+    },
+    {
+      "q": "What is the result of 'Math.floor(3.6)'?",
+      "a": "3.0",
+      "b": "4.0",
+      "c": "3",
+      "d": "4",
+      "correct": "A"
+    },
+    {
+      "q": "Which exception is thrown when an array is accessed with an invalid index?",
+      "a": "ArrayIndexException",
+      "b": "IndexOutOfBoundsException",
+      "c": "ArrayIndexOutOfBoundsException",
+      "d": "NullPointerException",
+      "correct": "C"
+    },
+    {
+      "q": "What is the purpose of the 'final' keyword with a class?",
+      "a": "Prevents inheritance",
+      "b": "Prevents method overriding",
+      "c": "Prevents variable change",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of these is a wrapper class for the primitive 'char'?",
+      "a": "Char",
+      "b": "String",
+      "c": "Character",
+      "d": "Chars",
+      "correct": "C"
+    },
+    {
+      "q": "What is the default access modifier for a class member?",
+      "a": "public",
+      "b": "private",
+      "c": "protected",
+      "d": "package-private",
+      "correct": "D"
+    },
+    {
+      "q": "Which collection allows unique elements only?",
+      "a": "List",
+      "b": "Set",
+      "c": "Vector",
+      "d": "Stack",
+      "correct": "B"
+    },
+    {
+      "q": "Which method is used to find the length of a string in Java?",
+      "a": "length()",
+      "b": "size()",
+      "c": "len()",
+      "d": "count()",
+      "correct": "A"
+    },
+    {
+      "q": "Which of these keywords is used to define an interface?",
+      "a": "Interface",
+      "b": "interface",
+      "c": "intf",
+      "d": "implements",
+      "correct": "B"
+    },
+    {
+      "q": "What is the process of defining two or more methods within the same class with the same name but different parameters?",
+      "a": "Method Overriding",
+      "b": "Method Overloading",
+      "c": "Encapsulation",
+      "d": "Inheritance",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is not a loop in Java?",
+      "a": "for",
+      "b": "while",
+      "c": "do-while",
+      "d": "repeat-until",
+      "correct": "D"
+    },
+    {
+      "q": "What is the memory area where objects are stored in Java?",
+      "a": "Stack",
+      "b": "Heap",
+      "c": "Registry",
+      "d": "Method Area",
+      "correct": "B"
+    },
+    {
+      "q": "What does JRE stand for?",
+      "a": "Java Real Environment",
+      "b": "Java Runtime Environment",
+      "c": "Java Remote Extension",
+      "d": "Java Runtime Extension",
+      "correct": "B"
+    },
+    {
+      "q": "Which keyword is used to call the constructor of the parent class?",
+      "a": "this",
+      "b": "parent",
+      "c": "super",
+      "d": "base",
+      "correct": "C"
+    },
+    {
+      "q": "What is the purpose of 'garbage collection' in Java?",
+      "a": "To delete files",
+      "b": "To free unused memory",
+      "c": "To clean code",
+      "d": "To stop threads",
+      "correct": "B"
+    },
+    {
+      "q": "Which operator is used to create an object in Java?",
+      "a": "new",
+      "b": "create",
+      "c": "alloc",
+      "d": "make",
+      "correct": "A"
+    },
+    {
+      "q": "What is the result of 5/2 in Java (integer division)?",
+      "a": "2.5",
+      "b": "2",
+      "c": "3",
+      "d": "2.0",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is a valid declaration of an array?",
+      "a": "int arr = new int[5]",
+      "b": "int arr[] = new int[5]",
+      "c": "int arr[5] = new int[]",
+      "d": "arr = int[5]",
+      "correct": "B"
+    },
+    {
+      "q": "Which class is the superclass of every class in Java?",
+      "a": "String",
+      "b": "Object",
+      "c": "System",
+      "d": "Class",
+      "correct": "B"
+    },
+    {
+      "q": "What is the use of 'this' keyword?",
+      "a": "Refers to parent class",
+      "b": "Refers to current class object",
+      "c": "Creates a new object",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which statement is used to exit from a loop or switch?",
+      "a": "exit",
+      "b": "break",
+      "c": "stop",
+      "d": "continue",
+      "correct": "B"
+    }
+  ],
+  "Data Structures": [
+    {
+      "q": "Which data structure works on the LIFO principle?",
+      "a": "Queue",
+      "b": "Linked List",
+      "c": "Stack",
+      "d": "Tree",
+      "correct": "C"
+    },
+    {
+      "q": "A linear data structure in which insertion and deletion are done from different ends is?",
+      "a": "Stack",
+      "b": "Queue",
+      "c": "Binary Tree",
+      "d": "Graph",
+      "correct": "B"
+    },
+    {
+      "q": "What is the time complexity to access an element in an array by index?",
+      "a": "O(1)",
+      "b": "O(n)",
+      "c": "O(log n)",
+      "d": "O(n^2)",
+      "correct": "A"
+    },
+    {
+      "q": "Which data structure is required to implement Breadth-First Search (BFS)?",
+      "a": "Stack",
+      "b": "Tree",
+      "c": "Queue",
+      "d": "Array",
+      "correct": "C"
+    },
+    {
+      "q": "A linked list where the last node points back to the first node is called?",
+      "a": "Singly Linked List",
+      "b": "Doubly Linked List",
+      "c": "Circular Linked List",
+      "d": "Header Linked List",
+      "correct": "C"
+    },
+    {
+      "q": "What is the maximum number of children a node in a binary tree can have?",
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "Unlimited",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is a non-linear data structure?",
+      "a": "Stack",
+      "b": "String",
+      "c": "Graph",
+      "d": "Queue",
+      "correct": "C"
+    },
+    {
+      "q": "In a min-heap, where is the smallest element located?",
+      "a": "Leaf node",
+      "b": "Root node",
+      "c": "Middle node",
+      "d": "Anywhere",
+      "correct": "B"
+    },
+    {
+      "q": "Which data structure is used to handle recursion in a programming language?",
+      "a": "Stack",
+      "b": "Queue",
+      "c": "Deque",
+      "d": "Tree",
+      "correct": "A"
+    },
+    {
+      "q": "What is the time complexity of searching an element in a balanced Binary Search Tree (BST)?",
+      "a": "O(n)",
+      "b": "O(1)",
+      "c": "O(log n)",
+      "d": "O(n log n)",
+      "correct": "C"
+    },
+    {
+      "q": "A data structure that allows insertion and deletion from both ends is?",
+      "a": "Queue",
+      "b": "Stack",
+      "c": "Deque",
+      "d": "Priority Queue",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is used to resolve collisions in a Hash Table?",
+      "a": "Chaining",
+      "b": "Indexing",
+      "c": "Sorting",
+      "d": "Traversing",
+      "correct": "A"
+    },
+    {
+      "q": "What is the space complexity of an adjacency matrix for a graph with V vertices?",
+      "a": "O(V)",
+      "b": "O(V log V)",
+      "c": "O(V^2)",
+      "d": "O(E)",
+      "correct": "C"
+    },
+    {
+      "q": "Which tree is self-balancing?",
+      "a": "Binary Tree",
+      "b": "AVL Tree",
+      "c": "Spanning Tree",
+      "d": "Threaded Tree",
+      "correct": "B"
+    },
+    {
+      "q": "The process of visiting every node in a tree exactly once is called?",
+      "a": "Sorting",
+      "b": "Merging",
+      "c": "Traversing",
+      "d": "Inserting",
+      "correct": "C"
+    },
+    {
+      "q": "In a Doubly Linked List, how many pointers does each node contain?",
+      "a": "1",
+      "b": "2",
+      "c": "3",
+      "d": "0",
+      "correct": "B"
+    },
+    {
+      "q": "Which data structure is most efficient for implementing a Priority Queue?",
+      "a": "Array",
+      "b": "Linked List",
+      "c": "Heap",
+      "d": "Stack",
+      "correct": "C"
+    },
+    {
+      "q": "What is the height of an empty tree?",
+      "a": "0",
+      "b": "1",
+      "c": "-1",
+      "d": "Infinity",
+      "correct": "C"
+    },
+    {
+      "q": "Which traversal of a BST outputs the elements in sorted order?",
+      "a": "Pre-order",
+      "b": "In-order",
+      "c": "Post-order",
+      "d": "Level-order",
+      "correct": "B"
+    },
+    {
+      "q": "A graph with no cycles is called?",
+      "a": "Directed Graph",
+      "b": "Complete Graph",
+      "c": "Acyclic Graph",
+      "d": "Bipartite Graph",
+      "correct": "C"
+    },
+    {
+      "q": "What is the worst-case time complexity of inserting a node in a Singly Linked List?",
+      "a": "O(1)",
+      "b": "O(n)",
+      "c": "O(log n)",
+      "d": "O(n^2)",
+      "correct": "B"
+    },
+    {
+      "q": "Which data structure is used for Undo/Redo operations in editors?",
+      "a": "Queue",
+      "b": "Array",
+      "c": "Stack",
+      "d": "Graph",
+      "correct": "C"
+    },
+    {
+      "q": "What is a 'Full Binary Tree'?",
+      "a": "Every node has 0 or 2 children",
+      "b": "Every node has 2 children",
+      "c": "All leaves are at the same level",
+      "d": "A tree with no nodes",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an application of a Graph?",
+      "a": "Expression evaluation",
+      "b": "Shortest path in a map",
+      "c": "Function calls",
+      "d": "Buffer management",
+      "correct": "B"
+    },
+    {
+      "q": "What does 'hashing' provide?",
+      "a": "Sorting of data",
+      "b": "Direct mapping of keys to values",
+      "c": "Hierarchical data storage",
+      "d": "FIFO access",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is not a dynamic data structure?",
+      "a": "Linked List",
+      "b": "Stack (linked implementation)",
+      "c": "Array",
+      "d": "Tree",
+      "correct": "C"
+    },
+    {
+      "q": "What is the index of the first element in an array in most languages?",
+      "a": "1",
+      "b": "0",
+      "c": "-1",
+      "d": "Variable",
+      "correct": "B"
+    },
+    {
+      "q": "Which data structure is used for Level Order Traversal of a tree?",
+      "a": "Stack",
+      "b": "Queue",
+      "c": "Heap",
+      "d": "Hash Table",
+      "correct": "B"
+    },
+    {
+      "q": "In a circular queue, how is the 'next' position calculated?",
+      "a": "(rear + 1) / size",
+      "b": "(rear + 1) % size",
+      "c": "rear + 1",
+      "d": "rear - 1",
+      "correct": "B"
+    },
+    {
+      "q": "What is the number of edges in a tree with 'n' nodes?",
+      "a": "n",
+      "b": "n + 1",
+      "c": "n - 1",
+      "d": "2n",
+      "correct": "C"
+    }
+  ],
+  "Algorithms": [
+    {
+      "q": "What is the time complexity of Binary Search in the worst case?",
+      "a": "O(n)",
+      "b": "O(log n)",
+      "c": "O(n log n)",
+      "d": "O(1)",
+      "correct": "B"
+    },
+    {
+      "q": "Which sorting algorithm is often considered the fastest in practice for general-purpose use?",
+      "a": "Bubble Sort",
+      "b": "Selection Sort",
+      "c": "Quick Sort",
+      "d": "Insertion Sort",
+      "correct": "C"
+    },
+    {
+      "q": "A 'Greedy algorithm' always makes the choice that seems best at?",
+      "a": "The end",
+      "b": "The current moment",
+      "c": "The beginning",
+      "d": "The average case",
+      "correct": "B"
+    },
+    {
+      "q": "What is the worst-case time complexity of Merge Sort?",
+      "a": "O(n^2)",
+      "b": "O(n log n)",
+      "c": "O(n)",
+      "d": "O(log n)",
+      "correct": "B"
+    },
+    {
+      "q": "Which algorithm is used to find the shortest path from a single source to all other nodes in a weighted graph?",
+      "a": "Dijkstra's",
+      "b": "Prim's",
+      "c": "Kruskal's",
+      "d": "Floyd-Warshall",
+      "correct": "A"
+    },
+    {
+      "q": "Dynamic Programming is used when a problem has which property?",
+      "a": "Overlapping subproblems",
+      "b": "No subproblems",
+      "c": "Constant time complexity",
+      "d": "Only one solution",
+      "correct": "A"
+    },
+    {
+      "q": "What is the time complexity of Bubble Sort in the average case?",
+      "a": "O(n)",
+      "b": "O(n log n)",
+      "c": "O(n^2)",
+      "d": "O(1)",
+      "correct": "C"
+    },
+    {
+      "q": "Which algorithm design technique does 'Merge Sort' use?",
+      "a": "Backtracking",
+      "b": "Divide and Conquer",
+      "c": "Greedy",
+      "d": "Dynamic Programming",
+      "correct": "B"
+    },
+    {
+      "q": "What is the space complexity of an in-place sorting algorithm?",
+      "a": "O(n)",
+      "b": "O(log n)",
+      "c": "O(1)",
+      "d": "O(n^2)",
+      "correct": "C"
+    },
+    {
+      "q": "Which algorithm is used to find the Minimum Spanning Tree of a graph?",
+      "a": "Kruskal's",
+      "b": "Dijkstra's",
+      "c": "Bellman-Ford",
+      "d": "BFS",
+      "correct": "A"
+    },
+    {
+      "q": "In a stable sorting algorithm, what is preserved for elements with equal keys?",
+      "a": "Their relative order",
+      "b": "Their memory address",
+      "c": "Their original values",
+      "d": "Nothing is preserved",
+      "correct": "A"
+    },
+    {
+      "q": "What is the primary disadvantage of recursion?",
+      "a": "Hard to write",
+      "b": "High memory usage (stack overflow risk)",
+      "c": "Low code readability",
+      "d": "No base case",
+      "correct": "B"
+    },
+    {
+      "q": "Which searching algorithm requires the input array to be sorted?",
+      "a": "Linear Search",
+      "b": "Binary Search",
+      "c": "Hash Search",
+      "d": "DFS",
+      "correct": "B"
+    },
+    {
+      "q": "What is the time complexity of the Floyd-Warshall algorithm?",
+      "a": "O(V^2)",
+      "b": "O(V^3)",
+      "c": "O(E log V)",
+      "d": "O(V+E)",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Brute Force' approach?",
+      "a": "Optimized solution",
+      "b": "Trying all possible solutions",
+      "c": "Using a heuristic",
+      "d": "Skipping steps",
+      "correct": "B"
+    },
+    {
+      "q": "Which algorithm is best suited to find the shortest path in an unweighted graph?",
+      "a": "DFS",
+      "b": "BFS",
+      "c": "Dijkstra's",
+      "d": "Prim's",
+      "correct": "B"
+    },
+    {
+      "q": "What is the time complexity of inserting a value into a Max-Heap?",
+      "a": "O(1)",
+      "b": "O(log n)",
+      "c": "O(n)",
+      "d": "O(n log n)",
+      "correct": "B"
+    },
+    {
+      "q": "The 'memoization' technique is part of which approach?",
+      "a": "Greedy",
+      "b": "Dynamic Programming",
+      "c": "Linear Search",
+      "d": "Randomized Algorithm",
+      "correct": "B"
+    },
+    {
+      "q": "Which sort has a worst-case complexity of O(n^2) but is very fast for small datasets?",
+      "a": "Merge Sort",
+      "b": "Heap Sort",
+      "c": "Insertion Sort",
+      "d": "Quick Sort",
+      "correct": "C"
+    },
+    {
+      "q": "What is the time complexity of Dijkstra's algorithm using a simple array?",
+      "a": "O(V^2)",
+      "b": "O(V log V)",
+      "c": "O(E)",
+      "d": "O(V+E)",
+      "correct": "A"
+    },
+    {
+      "q": "A 'Backtracking' algorithm is based on which search technique?",
+      "a": "BFS",
+      "b": "DFS",
+      "c": "Binary Search",
+      "d": "Linear Search",
+      "correct": "B"
+    },
+    {
+      "q": "What is the best-case time complexity of Quick Sort?",
+      "a": "O(n)",
+      "b": "O(n log n)",
+      "c": "O(n^2)",
+      "d": "O(1)",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is NOT a greedy algorithm?",
+      "a": "Huffman Coding",
+      "b": "Prim's Algorithm",
+      "c": "0/1 Knapsack (DP version)",
+      "d": "Kruskal's Algorithm",
+      "correct": "C"
+    },
+    {
+      "q": "What is the time complexity to find the median in a sorted array?",
+      "a": "O(n)",
+      "b": "O(log n)",
+      "c": "O(1)",
+      "d": "O(n log n)",
+      "correct": "C"
+    },
+    {
+      "q": "Which algorithm is used to solve the 'All-Pairs Shortest Path' problem?",
+      "a": "Dijkstra's",
+      "b": "Bellman-Ford",
+      "c": "Floyd-Warshall",
+      "d": "Prim's",
+      "correct": "C"
+    },
+    {
+      "q": "What is the worst-case complexity of Linear Search?",
+      "a": "O(1)",
+      "b": "O(log n)",
+      "c": "O(n)",
+      "d": "O(n^2)",
+      "correct": "C"
+    },
+    {
+      "q": "Which sorting algorithm uses the 'Partition' function?",
+      "a": "Merge Sort",
+      "b": "Selection Sort",
+      "c": "Quick Sort",
+      "d": "Bubble Sort",
+      "correct": "C"
+    },
+    {
+      "q": "What is the time complexity of Heap Sort?",
+      "a": "O(n^2)",
+      "b": "O(n log n)",
+      "c": "O(n)",
+      "d": "O(log n)",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Amortized Analysis' used for?",
+      "a": "Average case of a single operation",
+      "b": "Worst case over a sequence of operations",
+      "c": "Space complexity only",
+      "d": "Hardware performance",
+      "correct": "B"
+    },
+    {
+      "q": "Which algorithm is used for string pattern matching?",
+      "a": "Knuth-Morris-Pratt (KMP)",
+      "b": "Dijkstra's",
+      "c": "Kruskal's",
+      "d": "Heap Sort",
+      "correct": "A"
+    }
+  ],
+  "Web Development": [
+    {
+      "q": "What does HTML stand for?",
+      "a": "Hyperlinks and Text Markup Language",
+      "b": "Hyper Text Markup Language",
+      "c": "Home Tool Markup Language",
+      "d": "Hyper Tool Markup Language",
+      "correct": "B"
+    },
+    {
+      "q": "Which HTML element is used for the largest heading?",
+      "a": "<heading>",
+      "b": "<h6>",
+      "c": "<h1>",
+      "d": "<head>",
+      "correct": "C"
+    },
+    {
+      "q": "What is the correct HTML element for inserting a line break?",
+      "a": "<lb>",
+      "b": "<break>",
+      "c": "<br>",
+      "d": "<hr>",
+      "correct": "C"
+    },
+    {
+      "q": "Which property is used in CSS to change the background color?",
+      "a": "color",
+      "b": "bgcolor",
+      "c": "background-color",
+      "d": "canvas-color",
+      "correct": "C"
+    },
+    {
+      "q": "In the CSS box model, what is the space between the content and the border called?",
+      "a": "Margin",
+      "b": "Padding",
+      "c": "Outline",
+      "d": "Spacer",
+      "correct": "B"
+    },
+    {
+      "q": "Which CSS property controls the text size?",
+      "a": "font-style",
+      "b": "text-size",
+      "c": "font-size",
+      "d": "text-style",
+      "correct": "C"
+    },
+    {
+      "q": "How do you make a list that lists its items with numbers?",
+      "a": "<ul>",
+      "b": "<list>",
+      "c": "<ol>",
+      "d": "<dl>",
+      "correct": "C"
+    },
+    {
+      "q": "What does CSS stand for?",
+      "a": "Creative Style Sheets",
+      "b": "Cascading Style Sheets",
+      "c": "Computer Style Sheets",
+      "d": "Colorful Style Sheets",
+      "correct": "B"
+    },
+    {
+      "q": "Which HTML attribute is used to define inline styles?",
+      "a": "class",
+      "b": "styles",
+      "c": "font",
+      "d": "style",
+      "correct": "D"
+    },
+    {
+      "q": "What is the correct JavaScript syntax to change the content of an HTML element with id='demo'?",
+      "a": "document.getElement('demo').innerHTML = 'Hello';",
+      "b": "document.getElementById('demo').innerHTML = 'Hello';",
+      "c": "#demo.innerHTML = 'Hello';",
+      "d": "document.p.innerHTML = 'Hello';",
+      "correct": "B"
+    },
+    {
+      "q": "Which HTML tag is used to define an internal style sheet?",
+      "a": "<script>",
+      "b": "<css>",
+      "c": "<style>",
+      "d": "<link>",
+      "correct": "C"
+    },
+    {
+      "q": "How do you call a function named 'myFunction' in JavaScript?",
+      "a": "call myFunction()",
+      "b": "myFunction()",
+      "c": "call function myFunction()",
+      "d": "execute myFunction",
+      "correct": "B"
+    },
+    {
+      "q": "What is the purpose of the 'alt' attribute in an <img> tag?",
+      "a": "Alternative text for screen readers/broken links",
+      "b": "Alignment of the image",
+      "c": "Alter the image size",
+      "d": "Alternative image source",
+      "correct": "A"
+    },
+    {
+      "q": "Which HTTP status code represents 'Not Found'?",
+      "a": "200",
+      "b": "403",
+      "c": "404",
+      "d": "500",
+      "correct": "C"
+    },
+    {
+      "q": "In JavaScript, what does '===' operator check?",
+      "a": "Only value equality",
+      "b": "Only type equality",
+      "c": "Both value and type equality",
+      "d": "Assignment of value",
+      "correct": "C"
+    },
+    {
+      "q": "Which CSS selector is used to target an element with a specific ID?",
+      "a": ".",
+      "b": "#",
+      "c": "*",
+      "d": ":",
+      "correct": "B"
+    },
+    {
+      "q": "What does the 'target=\"_blank\"' attribute do in an <a> tag?",
+      "a": "Opens link in the same tab",
+      "b": "Opens link in a new tab/window",
+      "c": "Downloads the link",
+      "d": "Makes the link invisible",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is a JavaScript framework/library?",
+      "a": "Django",
+      "b": "React",
+      "c": "Laravel",
+      "d": "Flask",
+      "correct": "B"
+    },
+    {
+      "q": "What is the use of the <iframe> tag?",
+      "a": "To display a web page within a web page",
+      "b": "To insert an image",
+      "c": "To create a form",
+      "d": "To italicize text",
+      "correct": "A"
+    },
+    {
+      "q": "Which CSS property is used to make text bold?",
+      "a": "font-style: bold",
+      "b": "text-decoration: bold",
+      "c": "font-weight: bold",
+      "d": "font-bold: true",
+      "correct": "C"
+    },
+    {
+      "q": "What is the purpose of the 'JSON.stringify()' method?",
+      "a": "Converts JSON string to object",
+      "b": "Converts object to JSON string",
+      "c": "Parses an array",
+      "d": "Validates a JSON",
+      "correct": "B"
+    },
+    {
+      "q": "Which HTML5 element is used to specify a footer for a document?",
+      "a": "<bottom>",
+      "b": "<section>",
+      "c": "<footer>",
+      "d": "<end>",
+      "correct": "C"
+    },
+    {
+      "q": "How do you declare a JavaScript variable that cannot be reassigned?",
+      "a": "var",
+      "b": "let",
+      "c": "const",
+      "d": "static",
+      "correct": "C"
+    },
+    {
+      "q": "What does API stand for?",
+      "a": "Applied Programming Interface",
+      "b": "Application Programming Interface",
+      "c": "Automated Protocol Integration",
+      "d": "Application Process Indicator",
+      "correct": "B"
+    },
+    {
+      "q": "Which CSS property is used to create space around elements, outside of any defined borders?",
+      "a": "padding",
+      "b": "margin",
+      "c": "spacing",
+      "d": "border-spacing",
+      "correct": "B"
+    },
+    {
+      "q": "In Git, which command is used to save changes to the local repository?",
+      "a": "git push",
+      "b": "git commit",
+      "c": "git save",
+      "d": "git add",
+      "correct": "B"
+    },
+    {
+      "q": "What is the purpose of the 'z-index' property in CSS?",
+      "a": "Sets zoom level",
+      "b": "Sets stack order of elements",
+      "c": "Controls horizontal alignment",
+      "d": "Sets transparency",
+      "correct": "B"
+    },
+    {
+      "q": "Which event occurs when a user clicks on an HTML element?",
+      "a": "onmouseclick",
+      "b": "onclick",
+      "c": "onchange",
+      "d": "onmouseover",
+      "correct": "B"
+    },
+    {
+      "q": "What does the 'head' element in HTML contain?",
+      "a": "Visible content",
+      "b": "Metadata and title",
+      "c": "The main navigation",
+      "d": "JavaScript code only",
+      "correct": "B"
+    },
+    {
+      "q": "Which HTTP method is typically used to update existing data on a server?",
+      "a": "GET",
+      "b": "POST",
+      "c": "PUT/PATCH",
+      "d": "DELETE",
+      "correct": "C"
+    }
+  ],
+  "Database Management": [
+    {
+      "q": "What does DBMS stand for?",
+      "a": "Database Management System",
+      "b": "Data Binary Management System",
+      "c": "Database Main System",
+      "d": "Data Build Management System",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is a primary key requirement?",
+      "a": "Must be unique",
+      "b": "Cannot be null",
+      "c": "Both A and B",
+      "d": "Can have duplicates",
+      "correct": "C"
+    },
+    {
+      "q": "Which SQL command is used to retrieve data from a database?",
+      "a": "GET",
+      "b": "FETCH",
+      "c": "SELECT",
+      "d": "EXTRACT",
+      "correct": "C"
+    },
+    {
+      "q": "What is the full form of SQL?",
+      "a": "Simple Query Language",
+      "b": "Structured Query Language",
+      "c": "Standard Query Language",
+      "d": "Sequential Query Language",
+      "correct": "B"
+    },
+    {
+      "q": "Which normal form deals with removing partial dependencies?",
+      "a": "1NF",
+      "b": "2NF",
+      "c": "3NF",
+      "d": "BCNF",
+      "correct": "B"
+    },
+    {
+      "q": "In the ACID properties, what does 'A' stand for?",
+      "a": "Availability",
+      "b": "Atomicity",
+      "c": "Algorithm",
+      "d": "Access",
+      "correct": "B"
+    },
+    {
+      "q": "Which command is used to add a new record to a table?",
+      "a": "ADD",
+      "b": "CREATE",
+      "c": "INSERT",
+      "d": "UPDATE",
+      "correct": "C"
+    },
+    {
+      "q": "A 'Foreign Key' is used to?",
+      "a": "Uniquely identify a row",
+      "b": "Establish a link between two tables",
+      "c": "Store encrypted data",
+      "d": "Index a table",
+      "correct": "B"
+    },
+    {
+      "q": "Which SQL clause is used to filter the results of a GROUP BY?",
+      "a": "WHERE",
+      "b": "HAVING",
+      "c": "ORDER BY",
+      "d": "LIMIT",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Transaction' in DBMS?",
+      "a": "A single SQL command",
+      "b": "A unit of work that must be completed entirely or not at all",
+      "c": "A backup process",
+      "d": "A user login",
+      "correct": "B"
+    },
+    {
+      "q": "Which join returns all records when there is a match in either left or right table?",
+      "a": "Inner Join",
+      "b": "Left Join",
+      "c": "Full Outer Join",
+      "d": "Cross Join",
+      "correct": "C"
+    },
+    {
+      "q": "What is the purpose of the 'DROP' command?",
+      "a": "To remove data from a table",
+      "b": "To delete a table structure and its data",
+      "c": "To hide a table",
+      "d": "To rename a table",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is a DDL (Data Definition Language) command?",
+      "a": "SELECT",
+      "b": "INSERT",
+      "c": "CREATE",
+      "d": "UPDATE",
+      "correct": "C"
+    },
+    {
+      "q": "The process of organizing data to minimize redundancy is called?",
+      "a": "Indexing",
+      "b": "Normalization",
+      "c": "Data Mining",
+      "d": "Encryption",
+      "correct": "B"
+    },
+    {
+      "q": "What does the 'UNIQUE' constraint do?",
+      "a": "Ensures all values in a column are different",
+      "b": "Ensures the column is not null",
+      "c": "Makes the column a primary key",
+      "d": "Allows only numbers",
+      "correct": "A"
+    },
+    {
+      "q": "In an ER diagram, what does an oval represent?",
+      "a": "Entity",
+      "b": "Relationship",
+      "c": "Attribute",
+      "d": "Primary Key",
+      "correct": "C"
+    },
+    {
+      "q": "Which SQL command is used to change existing data in a table?",
+      "a": "CHANGE",
+      "b": "MODIFY",
+      "c": "UPDATE",
+      "d": "ALTER",
+      "correct": "C"
+    },
+    {
+      "q": "What is a 'Deadlock'?",
+      "a": "A system crash",
+      "b": "When two transactions wait for each other to release locks",
+      "c": "An infinite loop in SQL",
+      "d": "A database backup failure",
+      "correct": "B"
+    },
+    {
+      "q": "Which operator is used to search for a specified pattern in a column?",
+      "a": "IN",
+      "b": "LIKE",
+      "c": "BETWEEN",
+      "d": "EXISTS",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'NoSQL'?",
+      "a": "A database with no SQL support",
+      "b": "Not Only SQL (non-relational database)",
+      "c": "A broken database",
+      "d": "A legacy database system",
+      "correct": "B"
+    },
+    {
+      "q": "Which normal form eliminates transitive dependencies?",
+      "a": "1NF",
+      "b": "2NF",
+      "c": "3NF",
+      "d": "4NF",
+      "correct": "C"
+    },
+    {
+      "q": "What is the default sort order of the 'ORDER BY' clause?",
+      "a": "Ascending",
+      "b": "Descending",
+      "c": "Random",
+      "d": "By ID",
+      "correct": "A"
+    },
+    {
+      "q": "Which function is used to count the number of rows in a table?",
+      "a": "SUM()",
+      "b": "COUNT()",
+      "c": "TOTAL()",
+      "d": "NUMBER()",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Data Redundancy'?",
+      "a": "Loss of data",
+      "b": "Duplication of data",
+      "c": "Encryption of data",
+      "d": "Data accuracy",
+      "correct": "B"
+    },
+    {
+      "q": "Which level of data abstraction describes how data is actually stored?",
+      "a": "Logical level",
+      "b": "Physical level",
+      "c": "View level",
+      "d": "External level",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'View'?",
+      "a": "A physical table",
+      "b": "A virtual table based on a result set of an SQL statement",
+      "c": "A database backup",
+      "d": "An index",
+      "correct": "B"
+    },
+    {
+      "q": "Which command is used to remove all records from a table but keep the structure?",
+      "a": "DELETE",
+      "b": "TRUNCATE",
+      "c": "DROP",
+      "d": "REMOVE",
+      "correct": "B"
+    },
+    {
+      "q": "In ACID, what does 'Consistency' ensure?",
+      "a": "Database remains in a valid state",
+      "b": "Multiple users can access at once",
+      "c": "Data is stored forever",
+      "d": "Transactions are fast",
+      "correct": "A"
+    },
+    {
+      "q": "What is a 'Composite Key'?",
+      "a": "A key made of two or more columns",
+      "b": "A key that contains a string",
+      "c": "A foreign key",
+      "d": "A hidden key",
+      "correct": "A"
+    },
+    {
+      "q": "Which SQL command is used to save changes permanently?",
+      "a": "SAVE",
+      "b": "COMMIT",
+      "c": "ROLLBACK",
+      "d": "CHECKPOINT",
+      "correct": "B"
+    }
+  ],
+  "Computer Networks": [
+    {
+      "q": "How many layers are there in the OSI model?",
+      "a": "4",
+      "b": "5",
+      "c": "7",
+      "d": "8",
+      "correct": "C"
+    },
+    {
+      "q": "Which layer of the OSI model is responsible for routing?",
+      "a": "Physical",
+      "b": "Data Link",
+      "c": "Network",
+      "d": "Transport",
+      "correct": "C"
+    },
+    {
+      "q": "What does TCP stand for?",
+      "a": "Transmission Control Protocol",
+      "b": "Transfer Control Protocol",
+      "c": "Telecommunication Connection Protocol",
+      "d": "Terminal Control Protocol",
+      "correct": "A"
+    },
+    {
+      "q": "Which protocol is used to translate domain names into IP addresses?",
+      "a": "HTTP",
+      "b": "FTP",
+      "c": "DNS",
+      "d": "SMTP",
+      "correct": "C"
+    },
+    {
+      "q": "What is the size of an IPv4 address?",
+      "a": "16 bits",
+      "b": "32 bits",
+      "c": "64 bits",
+      "d": "128 bits",
+      "correct": "B"
+    },
+    {
+      "q": "Which layer is responsible for end-to-end error recovery and flow control?",
+      "a": "Network",
+      "b": "Transport",
+      "c": "Session",
+      "d": "Presentation",
+      "correct": "B"
+    },
+    {
+      "q": "What is the port number for HTTP?",
+      "a": "21",
+      "b": "25",
+      "c": "80",
+      "d": "443",
+      "correct": "C"
+    },
+    {
+      "q": "Which device operates at the Physical layer of the OSI model?",
+      "a": "Switch",
+      "b": "Router",
+      "c": "Hub",
+      "d": "Bridge",
+      "correct": "C"
+    },
+    {
+      "q": "What is the purpose of a 'Subnet Mask'?",
+      "a": "To hide the IP address",
+      "b": "To distinguish the network portion from the host portion",
+      "c": "To encrypt data",
+      "d": "To speed up the internet",
+      "correct": "B"
+    },
+    {
+      "q": "Which protocol is 'connectionless'?",
+      "a": "TCP",
+      "b": "HTTP",
+      "c": "UDP",
+      "d": "FTP",
+      "correct": "C"
+    },
+    {
+      "q": "What is the size of an IPv6 address?",
+      "a": "32 bits",
+      "b": "64 bits",
+      "c": "128 bits",
+      "d": "256 bits",
+      "correct": "C"
+    },
+    {
+      "q": "Which topology requires a central controller or hub?",
+      "a": "Mesh",
+      "b": "Star",
+      "c": "Bus",
+      "d": "Ring",
+      "correct": "B"
+    },
+    {
+      "q": "What does MAC stand for in MAC address?",
+      "a": "Media Access Control",
+      "b": "Memory Access Control",
+      "c": "Main Access Center",
+      "d": "Message Authentication Code",
+      "correct": "A"
+    },
+    {
+      "q": "Which layer of the OSI model handles data encryption and compression?",
+      "a": "Application",
+      "b": "Presentation",
+      "c": "Session",
+      "d": "Transport",
+      "correct": "B"
+    },
+    {
+      "q": "What is the range of a Class A IP address?",
+      "a": "1-126",
+      "b": "128-191",
+      "c": "192-223",
+      "d": "224-239",
+      "correct": "A"
+    },
+    {
+      "q": "Which protocol is used for sending emails?",
+      "a": "POP3",
+      "b": "IMAP",
+      "c": "SMTP",
+      "d": "SNMP",
+      "correct": "C"
+    },
+    {
+      "q": "What is the function of the 'ARP' protocol?",
+      "a": "Finds IP from MAC",
+      "b": "Finds MAC from IP",
+      "c": "Assigns IP addresses",
+      "d": "Routes packets",
+      "correct": "B"
+    },
+    {
+      "q": "Which device is used to connect two different networks?",
+      "a": "Switch",
+      "b": "Repeater",
+      "c": "Router",
+      "d": "Hub",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'Latancy' in a network?",
+      "a": "Data transfer rate",
+      "b": "The delay for data to travel from source to destination",
+      "c": "Number of users",
+      "d": "Signal strength",
+      "correct": "B"
+    },
+    {
+      "q": "Which port number is used by HTTPS?",
+      "a": "80",
+      "b": "23",
+      "c": "443",
+      "d": "110",
+      "correct": "C"
+    },
+    {
+      "q": "What is the full form of LAN?",
+      "a": "Large Area Network",
+      "b": "Local Area Network",
+      "c": "Long Access Network",
+      "d": "Link Area Network",
+      "correct": "B"
+    },
+    {
+      "q": "Which protocol is used for remote terminal access?",
+      "a": "SSH",
+      "b": "HTTP",
+      "c": "FTP",
+      "d": "UDP",
+      "correct": "A"
+    },
+    {
+      "q": "What is 'Bandwidth'?",
+      "a": "The physical width of a cable",
+      "b": "The maximum data transfer rate of a network",
+      "c": "The number of devices",
+      "d": "The speed of light",
+      "correct": "B"
+    },
+    {
+      "q": "Which layer provides the interface between the user and the network?",
+      "a": "Physical",
+      "b": "Session",
+      "c": "Application",
+      "d": "Presentation",
+      "correct": "C"
+    },
+    {
+      "q": "What is a 'Firewall' used for?",
+      "a": "To speed up browsing",
+      "b": "To filter incoming and outgoing network traffic",
+      "c": "To host a website",
+      "d": "To store passwords",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is a private IP address?",
+      "a": "8.8.8.8",
+      "b": "192.168.1.1",
+      "c": "172.67.1.1",
+      "d": "11.0.0.1",
+      "correct": "B"
+    },
+    {
+      "q": "What does DHCP stand for?",
+      "a": "Dynamic Host Configuration Protocol",
+      "b": "Digital Host Connection Protocol",
+      "c": "Direct Hosting Control Protocol",
+      "d": "Dynamic Hyperlink Control Protocol",
+      "correct": "A"
+    },
+    {
+      "q": "Which error detection method uses a generator polynomial?",
+      "a": "Checksum",
+      "b": "Parity bit",
+      "c": "CRC (Cyclic Redundancy Check)",
+      "d": "Hamming code",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'Phishing'?",
+      "a": "A network protocol",
+      "b": "A type of social engineering attack",
+      "c": "A data backup method",
+      "d": "A way to catch data packets",
+      "correct": "B"
+    },
+    {
+      "q": "What is the standard for Wireless LAN (Wi-Fi)?",
+      "a": "IEEE 802.3",
+      "b": "IEEE 802.11",
+      "c": "IEEE 802.15",
+      "d": "IEEE 802.5",
+      "correct": "B"
+    }
+  ],
+  "Operating Systems": [
+    {
+      "q": "What is the main purpose of an Operating System?",
+      "a": "To provide a user interface",
+      "b": "To manage computer hardware and software resources",
+      "c": "To compile high-level code",
+      "d": "To design hardware circuits",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is NOT a state of a process?",
+      "a": "Running",
+      "b": "Waiting",
+      "c": "Finished",
+      "d": "Executing",
+      "correct": "C"
+    },
+    {
+      "q": "What does PCB stand for in OS?",
+      "a": "Process Control Block",
+      "b": "Program Control Block",
+      "c": "Process Central Board",
+      "d": "Primary Control Block",
+      "correct": "A"
+    },
+    {
+      "q": "What is 'Thrashing'?",
+      "a": "High paging activity that leads to low CPU utilization",
+      "b": "A process of deleting files",
+      "c": "A type of hardware failure",
+      "d": "Fast execution of processes",
+      "correct": "A"
+    },
+    {
+      "q": "Which scheduling algorithm assigns the CPU to the process that arrives first?",
+      "a": "Shortest Job First",
+      "b": "Round Robin",
+      "c": "First-Come, First-Served",
+      "d": "Priority Scheduling",
+      "correct": "C"
+    },
+    {
+      "q": "What is a 'Kernel'?",
+      "a": "A user-level application",
+      "b": "The core part of an OS that manages system resources",
+      "c": "A hardware component",
+      "d": "A graphical user interface",
+      "correct": "B"
+    },
+    {
+      "q": "Which condition is NOT required for a deadlock to occur?",
+      "a": "Mutual Exclusion",
+      "b": "Hold and Wait",
+      "c": "Preemption",
+      "d": "Circular Wait",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'Virtual Memory'?",
+      "a": "Physical RAM",
+      "b": "A technique that allows execution of processes larger than physical memory",
+      "c": "A type of ROM",
+      "d": "External hard drive space",
+      "correct": "B"
+    },
+    {
+      "q": "Which system call is used to create a new process in Unix-like systems?",
+      "a": "create()",
+      "b": "new()",
+      "c": "fork()",
+      "d": "spawn()",
+      "correct": "C"
+    },
+    {
+      "q": "What is 'Context Switching'?",
+      "a": "Changing the user password",
+      "b": "Saving the state of a process and loading the state of another",
+      "c": "Switching between windows",
+      "d": "Upgrading the OS",
+      "correct": "B"
+    },
+    {
+      "q": "Which policy replaces the page that has not been used for the longest period of time?",
+      "a": "FIFO",
+      "b": "Optimal",
+      "c": "LRU (Least Recently Used)",
+      "d": "LIFO",
+      "correct": "C"
+    },
+    {
+      "q": "What is a 'Semaphore'?",
+      "a": "A hardware interrupt",
+      "b": "An integer variable used for process synchronization",
+      "c": "A type of memory",
+      "d": "A scheduling algorithm",
+      "correct": "B"
+    },
+    {
+      "q": "The interval from the time of submission of a process to the time of completion is?",
+      "a": "Waiting time",
+      "b": "Turnaround time",
+      "c": "Response time",
+      "d": "Throughput",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Fragmentation'?",
+      "a": "Breaking a process into threads",
+      "b": "Unused memory space within or between partitions",
+      "c": "A disk error",
+      "d": "Data encryption",
+      "correct": "B"
+    },
+    {
+      "q": "Which memory management scheme eliminates the need for contiguous allocation of physical memory?",
+      "a": "Swapping",
+      "b": "Paging",
+      "c": "Overlays",
+      "d": "Static Partitioning",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Thread'?",
+      "a": "A heavy-weight process",
+      "b": "A light-weight unit of CPU utilization",
+      "c": "An I/O device",
+      "d": "A memory address",
+      "correct": "B"
+    },
+    {
+      "q": "Which of these is a 'Critical Section'?",
+      "a": "The main() function",
+      "b": "A code segment where shared resources are accessed",
+      "c": "The boot sector",
+      "d": "The recycle bin",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Spooling'?",
+      "a": "Simultaneous Peripheral Operations On-Line",
+      "b": "Speeding up the CPU",
+      "c": "A type of deadlock",
+      "d": "Memory paging",
+      "correct": "A"
+    },
+    {
+      "q": "Which algorithm is used for deadlock avoidance?",
+      "a": "Round Robin",
+      "b": "Banker's Algorithm",
+      "c": "Elevator Algorithm",
+      "d": "Dijkstra's Algorithm",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Bootloader'?",
+      "a": "A program that loads the OS into memory",
+      "b": "A hardware driver",
+      "c": "An antivirus tool",
+      "d": "A file compressor",
+      "correct": "A"
+    },
+    {
+      "q": "What is 'Internal Fragmentation'?",
+      "a": "Wasted space within a memory block",
+      "b": "Wasted space between blocks",
+      "c": "CPU idle time",
+      "d": "Disk latency",
+      "correct": "A"
+    },
+    {
+      "q": "Which interrupt is generated by a software program?",
+      "a": "Hardware interrupt",
+      "b": "Trap",
+      "c": "Timer interrupt",
+      "d": "I/O interrupt",
+      "correct": "B"
+    },
+    {
+      "q": "What is the function of a 'Device Driver'?",
+      "a": "To clean the hardware",
+      "b": "To act as a translator between OS and hardware",
+      "c": "To increase RAM",
+      "d": "To compile programs",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Belady's Anomaly'?",
+      "a": "Page faults decrease as frames increase",
+      "b": "Page faults increase as frames increase in FIFO",
+      "c": "CPU becomes faster over time",
+      "d": "Memory leaks",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Time Quantum' in scheduling?",
+      "a": "The total time a process runs",
+      "b": "A small unit of time in Round Robin scheduling",
+      "c": "The time taken to boot",
+      "d": "The age of a process",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Socket'?",
+      "a": "A hardware port",
+      "b": "An endpoint for communication",
+      "c": "A CPU register",
+      "d": "A file extension",
+      "correct": "B"
+    },
+    {
+      "q": "Which file system is commonly used in Windows?",
+      "a": "EXT4",
+      "b": "NTFS",
+      "c": "HFS+",
+      "d": "APFS",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Preemptive Scheduling'?",
+      "a": "A process cannot be interrupted",
+      "b": "A process can be interrupted to give CPU to another",
+      "c": "Scheduling done before booting",
+      "d": "Manual scheduling",
+      "correct": "B"
+    },
+    {
+      "q": "What is a 'Zombie Process'?",
+      "a": "A process that never starts",
+      "b": "A process that has finished execution but still has an entry in the process table",
+      "c": "A virus",
+      "d": "A process that consumes 100% CPU",
+      "correct": "B"
+    },
+    {
+      "q": "What is 'Paging'?",
+      "a": "Mapping logical addresses to physical addresses in fixed-size blocks",
+      "b": "Moving files to a new folder",
+      "c": "Cleaning the disk",
+      "d": "Printing document pages",
+      "correct": "A"
+    }
+  ],
+  "Machine Learning": [
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Machine Learning?",
+      "a": "Primary Machine Learning principle A",
+      "b": "Secondary Machine Learning concept B",
+      "c": "Standard Machine Learning operation C",
+      "d": "None of the above",
+      "correct": "A"
+    }
+  ],
+  "Cybersecurity": [
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "C"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "A"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "D"
+    },
+    {
+      "q": "Which of the following is an essential concept in Cybersecurity?",
+      "a": "Primary Cybersecurity principle A",
+      "b": "Secondary Cybersecurity concept B",
+      "c": "Standard Cybersecurity operation C",
+      "d": "None of the above",
+      "correct": "B"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+# Database
+# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+'''
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'student_career',         # Your PostgreSQL DB name
+        'USER': 'Admin1',       # Your PostgreSQL role/user
+        'PASSWORD': 'Admin1234',    # Your password
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+'''

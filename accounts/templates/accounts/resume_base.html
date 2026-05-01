@@ -1,0 +1,1082 @@
+{% extends 'accounts/base.html' %}
+{% block title %}Resume Builder | AI Career Companion{% endblock %}
+{% block header_title %}Resume Builder{% endblock %}
+
+{% block extra_head %}
+  <style>
+    * { scrollbar-width: thin; scrollbar-color: #4f46e5 #1e293b; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: #0f172a; }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    
+
+
+    .glass { background: rgba(30,41,59,0.7); backdrop-filter: blur(20px); border: 1px solid rgba(99,102,241,0.15); }
+    .glass-light { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+    .fade-up { animation: fadeUp 0.4s ease-out; }
+    @keyframes pulse-glow { 0%,100% { box-shadow: 0 0 5px rgba(99,102,241,0.3); } 50% { box-shadow: 0 0 20px rgba(99,102,241,0.6); } }
+    .glow { animation: pulse-glow 2s infinite; }
+    .input-dark { background: rgba(15,23,42,0.6); border: 1px solid rgba(99,102,241,0.2); color: #e2e8f0; border-radius: 12px; padding: 10px 14px; font-size: 13px; transition: all 0.3s; }
+    .input-dark:focus { outline: none; border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99,102,241,0.15); }
+    .input-dark::placeholder { color: #64748b; }
+    .btn-primary-rs { background: linear-gradient(135deg, #6366f1, #4f46e5); color: white; border: none; border-radius: 9999px; padding: 10px 24px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.3s; }
+    .btn-primary-rs:hover { transform: translateY(-1px); box-shadow: 0 8px 25px rgba(99,102,241,0.35); }
+    .btn-ghost { background: rgba(99,102,241,0.1); color: #a5b4fc; border: 1px solid rgba(99,102,241,0.2); border-radius: 9999px; padding: 8px 18px; font-weight: 500; font-size: 12px; cursor: pointer; transition: all 0.3s; }
+    .btn-ghost:hover { background: rgba(99,102,241,0.2); border-color: rgba(99,102,241,0.4); }
+    .section-card { background: rgba(30,41,59,0.5); border: 1px solid rgba(99,102,241,0.1); border-radius: 16px; padding: 20px; margin-bottom: 16px; transition: all 0.3s; }
+    .section-card:hover { border-color: rgba(99,102,241,0.25); }
+    .template-card { cursor: pointer; border: 2px solid transparent; border-radius: 16px; overflow: hidden; transition: all 0.3s; }
+    .template-card:hover { border-color: rgba(99,102,241,0.4); transform: translateY(-3px); }
+    .template-card.active { border-color: #6366f1; box-shadow: 0 0 30px rgba(99,102,241,0.2); }
+    .star-btn { background: linear-gradient(135deg, #f59e0b, #d97706); color: white; border: none; border-radius: 8px; padding: 4px 10px; font-size: 10px; cursor: pointer; transition: all 0.3s; font-weight: 600; }
+    .star-btn:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(245,158,11,0.3); }
+    #preview-pane { overflow-y: auto; overflow-x: hidden; position: relative; background-color: #f1f5f9; }
+    .ats-ring { width: 100px; height: 100px; }
+    .tone-slider { -webkit-appearance: none; appearance: none; width: 100%; height: 6px; border-radius: 3px; background: linear-gradient(90deg, #1e40af, #6366f1, #f59e0b); outline: none; }
+    .tone-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; border-radius: 50%; background: white; border: 3px solid #6366f1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
+    .tone-slider::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: white; border: 3px solid #6366f1; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.3); border-color: #6366f1; }
+    #live-preview { transform-origin: top left; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding-bottom: 50px; }
+    
+    /* Paged View Simulation */
+    #resume-preview-content {
+      position: relative;
+      background-color: white;
+      box-shadow: 0 0 0 1px #e2e8f0, 0 10px 30px -5px rgba(0,0,0,0.1);
+      min-height: 297mm;
+    }
+    
+    /* Page Break Line indicators (Non-hiding) */
+    .page-break-line {
+      position: absolute;
+      left: 0; right: 0;
+      border-top: 2px dashed #cbd5e1;
+      height: 0;
+      pointer-events: none;
+      z-index: 10;
+    }
+    .page-num-tag {
+      position: absolute;
+      right: 10px;
+      margin-top: -20px;
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: bold;
+      pointer-events: none;
+    }
+
+    /* Prevent cutting content in sections */
+    #resume-preview-content .experience-item,
+    #resume-preview-content .edu-item,
+    #resume-preview-content .project-item {
+      break-inside: avoid;
+      page-break-inside: avoid;
+    }
+
+    /* Print logic: Hide markers */
+    .exporting-pdf .page-break-line,
+    .exporting-pdf .page-num-tag {
+      display: none !important;
+      opacity: 0 !important;
+      visibility: hidden !important;
+    }
+
+    /* ═══════ A4 Print Engine ═══════ */
+    @page {
+      size: A4;        /* 210mm × 297mm */
+      margin: 0;       /* resume handles its own padding */
+    }
+
+    @media print {
+      html, body {
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 210mm !important;
+        min-height: 297mm !important;
+        background: white !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* Hide everything except the resume */
+      #editor-panel, #ai-panel, .star-btn, .btn, #dl-btn,
+      .page-num-tag, .page-break-line, .section-card,
+      #dl-actions { display: none !important; }
+
+      #preview-pane {
+        background: white !important;
+        padding: 0 !important;
+        overflow: visible !important;
+        width: 210mm !important;
+      }
+
+      #live-preview {
+        transform: none !important;
+        width: 210mm !important;
+        height: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+
+      #resume-preview-content {
+        width: 210mm !important;
+        min-height: 297mm !important;
+        box-shadow: none !important;
+        margin: 0 !important;
+        border: none !important;
+        /* Allow natural overflow to next page */
+        overflow: visible !important;
+        page-break-inside: auto !important;
+      }
+
+      /* Widow/Orphan Protection */
+      p, h1, h2, h3, li { orphans: 3; widows: 3; }
+
+      /* Keep sections together when possible */
+      .experience-item, .edu-item, .project-item {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+
+<!-- Main Grid: Editor | Preview | AI Panel -->
+<div class="flex h-[calc(100vh-130px)] rounded-2xl overflow-hidden shadow-soft border border-slate-200 bg-[#0f172a] font-inter text-slate-200">
+
+  <!-- LEFT: Form Editor -->
+  <div class="w-[420px] shrink-0 overflow-y-auto p-4 space-y-2 border-r border-slate-800/50" id="editor-panel">
+
+    <!-- Template Selector -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3">Choose Template</h3>
+      <div class="grid grid-cols-3 gap-3">
+        <div class="template-card active" data-style="modernist" onclick="switchTemplate('modernist', this)">
+          <div class="h-20 bg-gradient-to-br from-slate-800 to-cyan-900 flex items-center justify-center">
+            <div class="flex gap-1"><div class="w-6 h-12 bg-slate-700 rounded-sm"></div><div class="w-10 h-12 bg-slate-600 rounded-sm"></div></div>
+          </div>
+          <p class="text-[10px] text-center py-2 font-semibold text-slate-300">Modernist</p>
+        </div>
+        <div class="template-card" data-style="executive" onclick="switchTemplate('executive', this)">
+          <div class="h-20 bg-gradient-to-br from-stone-100 to-stone-200 flex items-center justify-center">
+            <div class="w-14 space-y-1"><div class="h-1.5 bg-stone-400 rounded"></div><div class="h-1 bg-stone-300 rounded"></div><div class="h-1 bg-stone-300 rounded w-10"></div></div>
+          </div>
+          <p class="text-[10px] text-center py-2 font-semibold text-slate-300">Executive</p>
+        </div>
+        <div class="template-card" data-style="creative" onclick="switchTemplate('creative', this)">
+          <div class="h-20 bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+            <div class="space-y-1"><div class="h-2 w-12 bg-white/30 rounded"></div><div class="flex gap-1"><div class="h-1 w-5 bg-white/20 rounded"></div><div class="h-1 w-7 bg-white/20 rounded"></div></div></div>
+          </div>
+          <p class="text-[10px] text-center py-2 font-semibold text-slate-300">Creative</p>
+        </div>
+      </div>
+      <!-- Brand Color for Creative -->
+      <div id="brand-color-row" class="mt-3 flex items-center gap-3 hidden">
+        <label class="text-[10px] text-slate-400 font-medium">Brand Color:</label>
+        <input type="color" id="brand-color-input" value="#6366f1" class="w-8 h-8 rounded-lg cursor-pointer border-0" onchange="updatePreview()"/>
+      </div>
+
+    </div>
+
+    <!-- Font Size Control -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3">Body Font Size</h3>
+      <div class="flex items-center justify-between gap-3">
+        <button onclick="adjustFontSize(-1)" class="btn-ghost flex items-center justify-center w-10 h-10 text-lg font-bold rounded-xl" title="Decrease font size">A−</button>
+        <div class="flex-1 text-center">
+          <span id="font-size-display" class="text-xl font-black text-white">0</span>
+          <p class="text-[9px] text-slate-500 mt-0.5 uppercase tracking-wider">Offset</p>
+        </div>
+        <button onclick="adjustFontSize(1)" class="btn-ghost flex items-center justify-center w-10 h-10 text-lg font-bold rounded-xl" title="Increase font size">A+</button>
+      </div>
+      <div class="flex justify-center mt-2">
+        <button onclick="adjustFontSize(0)" class="text-[9px] text-slate-500 hover:text-slate-300 transition-colors cursor-pointer uppercase tracking-wider font-semibold">Reset</button>
+      </div>
+    </div>
+
+    <!-- Personal Info -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3">Personal Information</h3>
+      <input type="file" id="photo-upload" accept="image/*" class="input-dark w-full mb-2 text-xs" onchange="handlePhoto(this)"/>
+      <input type="text" id="f-name" class="input-dark w-full mb-2" placeholder="Full Name" oninput="updatePreview()"/>
+      <input type="email" id="f-email" class="input-dark w-full mb-2" placeholder="Email Address" oninput="updatePreview()"/>
+      <input type="text" id="f-phone" class="input-dark w-full mb-2" placeholder="Phone Number" oninput="updatePreview()"/>
+      <input type="url" id="f-linkedin" class="input-dark w-full mb-2" placeholder="LinkedIn URL" oninput="updatePreview()"/>
+      <textarea id="f-address" class="input-dark w-full" rows="2" placeholder="Address" oninput="updatePreview()"></textarea>
+    </div>
+
+    <!-- Summary -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-2">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Professional Summary</h3>
+        <button class="star-btn" onclick="generateAISummary()">✨ AI Generate</button>
+      </div>
+      <textarea id="f-summary" class="input-dark w-full" rows="4" placeholder="Write or let AI generate your summary..." oninput="updatePreview()"></textarea>
+    </div>
+
+    <!-- Skills -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Skills</h3>
+        <button class="star-btn" onclick="recommendSkills()">✨ AI Recommend</button>
+      </div>
+      <div id="skill-recommendations" class="mb-3 hidden fade-up">
+        <div class="p-2 glass-light rounded-xl border border-indigo-500/20">
+          <p class="text-[9px] text-slate-400 mb-2 font-semibold uppercase tracking-tight">Suggested for you:</p>
+          <div id="rec-tags-container" class="flex flex-wrap gap-1.5"></div>
+        </div>
+      </div>
+      <input type="text" id="f-tech-skills" class="input-dark w-full mb-2" placeholder="Technical Skills (comma-separated)" oninput="updatePreview()"/>
+      <input type="text" id="f-soft-skills" class="input-dark w-full" placeholder="Soft Skills (comma-separated)" oninput="updatePreview()"/>
+    </div>
+
+    <!-- Education (dynamic) -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Education</h3>
+        <button class="btn-ghost text-[10px]" onclick="addSection('education')">+ Add</button>
+      </div>
+      <div id="education-list">
+        <div class="edu-item glass-light rounded-xl p-3 mb-2 space-y-2">
+          <input type="text" class="input-dark w-full edu-degree" placeholder="Degree / Course" oninput="updatePreview()"/>
+          <input type="text" class="input-dark w-full edu-institution" placeholder="Institution" oninput="updatePreview()"/>
+          <div class="flex gap-2">
+            <input type="text" class="input-dark w-1/2 edu-percentage" placeholder="Percentage" oninput="updatePreview()"/>
+            <input type="text" class="input-dark w-1/2 edu-year" placeholder="Year" oninput="updatePreview()"/>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience (dynamic) -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Work Experience</h3>
+        <button class="btn-ghost text-[10px]" onclick="addSection('experience')">+ Add</button>
+      </div>
+      <div id="experience-list">
+        <div class="exp-item glass-light rounded-xl p-3 mb-2 space-y-2">
+          <input type="text" class="input-dark w-full exp-company" placeholder="Company Name" oninput="updatePreview()"/>
+          <input type="text" class="input-dark w-full exp-designation" placeholder="Job Title" oninput="updatePreview()"/>
+          <input type="text" class="input-dark w-full exp-tenure" placeholder="Tenure (e.g. Jan 2023 – Present)" oninput="updatePreview()"/>
+          <div class="flex items-start gap-2">
+            <textarea class="input-dark w-full exp-desc" rows="2" placeholder="Description..." oninput="updatePreview()"></textarea>
+            <button class="star-btn mt-1" onclick="starPolish(this.previousElementSibling)" title="STAR Polish">⭐</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Projects (dynamic) -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Projects</h3>
+        <button class="btn-ghost text-[10px]" onclick="addSection('projects')">+ Add</button>
+      </div>
+      <div id="projects-list">
+        <div class="proj-item glass-light rounded-xl p-3 mb-2 space-y-2">
+          <input type="text" class="input-dark w-full proj-title" placeholder="Project Title" oninput="updatePreview()"/>
+          <div class="flex items-start gap-2">
+            <textarea class="input-dark w-full proj-desc" rows="2" placeholder="Description..." oninput="updatePreview()"></textarea>
+            <button class="star-btn mt-1" onclick="starPolish(this.previousElementSibling)" title="STAR Polish">⭐</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Certifications -->
+    <div class="section-card">
+      <div class="flex items-center justify-between mb-3">
+        <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400">Certifications</h3>
+        <button class="btn-ghost text-[10px]" onclick="addSection('certifications')">+ Add</button>
+      </div>
+      <div id="certifications-list">
+        <div class="cert-item glass-light rounded-xl p-3 mb-2">
+          <input type="text" class="input-dark w-full cert-text" placeholder="Certification or Achievement" oninput="updatePreview()"/>
+        </div>
+      </div>
+    </div>
+
+    <!-- Languages, Extracurricular, Interests -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3">Additional Info</h3>
+      <input type="text" id="f-languages" class="input-dark w-full mb-2" placeholder="Languages (e.g. English (Fluent), Hindi (Native))" oninput="updatePreview()"/>
+      <input type="text" id="f-extracurricular" class="input-dark w-full mb-2" placeholder="Extracurricular Activities (comma-separated)" oninput="updatePreview()"/>
+      <input type="text" id="f-interests" class="input-dark w-full" placeholder="Interests (comma-separated)" oninput="updatePreview()"/>
+    </div>
+
+    <!-- Save to DB -->
+    {% if user.is_authenticated %}
+    <div class="section-card">
+      <button class="btn-primary w-full text-xs" onclick="saveResume()">💾 Save Resume</button>
+    </div>
+    {% endif %}
+
+    <div class="h-8"></div>
+  </div>
+
+  <!-- CENTER: Live Preview -->
+  <div class="flex-1 overflow-y-auto bg-slate-100 p-3" id="preview-pane">
+    <div id="live-preview" class="fade-up">
+      {% include "accounts/themes/modernist.html" %}
+    </div>
+  </div>
+
+  <!-- RIGHT: AI Panel -->
+  <div class="w-[320px] shrink-0 overflow-y-auto border-l border-slate-800/50 p-4 space-y-4" id="ai-panel">
+
+    <!-- ATS Matcher -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3 flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-brand-500/20 flex items-center justify-center text-[10px]">🎯</span>
+        ATS Match Score
+      </h3>
+      <textarea id="ats-jd" class="input-dark w-full mb-3" rows="5" placeholder="Paste the Job Description here..."></textarea>
+      <button class="btn-primary w-full text-xs" onclick="runATSMatch()">Analyze Match</button>
+      <div id="ats-result" class="mt-4 hidden fade-up">
+        <div class="flex items-center justify-center">
+          <div class="relative">
+            <svg class="ats-ring" viewBox="0 0 36 36">
+              <path d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831" fill="none" stroke="#1e293b" stroke-width="3"/>
+              <path id="ats-arc" d="M18 2.0845a15.9155 15.9155 0 010 31.831 15.9155 15.9155 0 010-31.831" fill="none" stroke="#6366f1" stroke-width="3" stroke-dasharray="0, 100" stroke-linecap="round" style="transition: stroke-dasharray 1s ease;"/>
+            </svg>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span id="ats-score-text" class="text-2xl font-black text-white">0%</span>
+            </div>
+          </div>
+        </div>
+        <div id="ats-keywords" class="mt-3 space-y-1"></div>
+      </div>
+    </div>
+
+    <!-- Tone Slider -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-3 flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-brand-500/20 flex items-center justify-center text-[10px]">🎛️</span>
+        Tone Adjustment
+      </h3>
+      <div class="flex justify-between text-[10px] text-slate-400 mb-1">
+        <span>🏢 Corporate</span><span>🚀 Startup</span>
+      </div>
+      <input type="range" id="tone-slider" min="0" max="100" value="50" class="tone-slider w-full mb-3"/>
+      <p class="text-[10px] text-slate-500 mb-2">Adjusts Summary & Experience tone</p>
+      <button class="btn-primary w-full text-xs" onclick="adjustTone()">Apply Tone</button>
+      <div id="tone-status" class="mt-2 text-[10px] text-slate-400 text-center hidden"></div>
+    </div>
+
+    <!-- STAR Polisher Info -->
+    <div class="section-card">
+      <h3 class="text-xs font-bold uppercase tracking-widest text-brand-400 mb-2 flex items-center gap-2">
+        <span class="w-5 h-5 rounded-full bg-amber-500/20 flex items-center justify-center text-[10px]">⭐</span>
+        STAR Method Polisher
+      </h3>
+      <p class="text-[10px] text-slate-400 leading-relaxed">Click the ⭐ button next to any description field to rewrite it using the <strong class="text-amber-400">STAR method</strong> (Situation → Task → Action → Result) for maximum impact.</p>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<script>
+// ===== STATE =====
+let currentStyle = '{{ initial_style|default:"modernist" }}';
+let photoDataUrl = null;
+let fontSizeOffset = 0; // px offset for body text
+
+/**
+ * Adjusts resume body font size by the given delta.
+ * Pass 0 to reset to default.
+ */
+function adjustFontSize(delta) {
+  if (delta === 0) {
+    fontSizeOffset = 0;
+  } else {
+    fontSizeOffset += delta;
+    // Clamp between -4 and +4
+    fontSizeOffset = Math.max(-4, Math.min(4, fontSizeOffset));
+  }
+  
+  // Update the display
+  const display = document.getElementById('font-size-display');
+  if (display) {
+    display.textContent = (fontSizeOffset > 0 ? '+' : '') + fontSizeOffset;
+  }
+  
+  // Apply offset to the resume preview content via CSS variable
+  applyFontSizeOffset();
+}
+
+function applyFontSizeOffset() {
+  const content = document.getElementById('resume-preview-content');
+  if (!content) return;
+
+  if (fontSizeOffset === 0) {
+    // Remove any inline adjustments
+    content.style.removeProperty('--font-offset');
+    content.querySelectorAll('[data-orig-size]').forEach(el => {
+      el.style.fontSize = el.getAttribute('data-orig-size');
+      el.removeAttribute('data-orig-size');
+    });
+    autoScalePreview();
+    return;
+  }
+
+  // Find all elements that have an explicit font-size class (Tailwind text-[Xpx])
+  // and adjust them by the offset
+  content.querySelectorAll('*').forEach(el => {
+    const computed = window.getComputedStyle(el);
+    const currentSize = parseFloat(computed.fontSize);
+    
+    // Only adjust elements that likely carry body/paragraph text (not the root container)
+    if (el === content) return;
+    
+    // Store original size on first pass
+    if (!el.hasAttribute('data-orig-size')) {
+      el.setAttribute('data-orig-size', currentSize + 'px');
+    }
+    
+    const origSize = parseFloat(el.getAttribute('data-orig-size'));
+    const newSize = Math.max(7, origSize + fontSizeOffset);
+    el.style.fontSize = newSize + 'px';
+  });
+  
+  autoScalePreview();
+}
+
+function getCookie(name) {
+  let v = null;
+  if (document.cookie) document.cookie.split(';').forEach(c => {
+    c = c.trim();
+    if (c.startsWith(name + '=')) v = decodeURIComponent(c.substring(name.length + 1));
+  });
+  return v;
+}
+
+// ===== HYDRATE FROM SAVED DATA =====
+function hydrateForm(data) {
+  if (!data) return;
+  const b = data.basics || {};
+  if (b.name) document.getElementById('f-name').value = b.name;
+  if (b.email) document.getElementById('f-email').value = b.email;
+  if (b.phone) document.getElementById('f-phone').value = b.phone;
+  if (b.linkedin) document.getElementById('f-linkedin').value = b.linkedin;
+  if (b.address) document.getElementById('f-address').value = b.address;
+  if (b.summary) document.getElementById('f-summary').value = b.summary;
+  if (b.photo) photoDataUrl = b.photo;
+
+  const sk = data.skills || {};
+  if (sk.technical && sk.technical.length) document.getElementById('f-tech-skills').value = sk.technical.join(', ');
+  if (sk.soft && sk.soft.length) document.getElementById('f-soft-skills').value = sk.soft.join(', ');
+
+  // Education
+  const eduList = data.education || [];
+  if (eduList.length > 0) {
+    const firstEdu = document.querySelector('.edu-item');
+    if (firstEdu) {
+      firstEdu.querySelector('.edu-degree').value = eduList[0].degree || '';
+      firstEdu.querySelector('.edu-institution').value = eduList[0].institution || '';
+      firstEdu.querySelector('.edu-percentage').value = eduList[0].percentage || '';
+      firstEdu.querySelector('.edu-year').value = eduList[0].year || '';
+    }
+    for (let i = 1; i < eduList.length; i++) {
+      addSection('education');
+      const items = document.querySelectorAll('.edu-item');
+      const el = items[items.length - 1];
+      el.querySelector('.edu-degree').value = eduList[i].degree || '';
+      el.querySelector('.edu-institution').value = eduList[i].institution || '';
+      el.querySelector('.edu-percentage').value = eduList[i].percentage || '';
+      el.querySelector('.edu-year').value = eduList[i].year || '';
+    }
+  }
+
+  // Experience
+  const expList = data.experience || [];
+  if (expList.length > 0) {
+    const firstExp = document.querySelector('.exp-item');
+    if (firstExp) {
+      firstExp.querySelector('.exp-company').value = expList[0].company || '';
+      firstExp.querySelector('.exp-designation').value = expList[0].designation || '';
+      firstExp.querySelector('.exp-tenure').value = expList[0].tenure || '';
+      firstExp.querySelector('.exp-desc').value = expList[0].description || '';
+    }
+    for (let i = 1; i < expList.length; i++) {
+      addSection('experience');
+      const items = document.querySelectorAll('.exp-item');
+      const el = items[items.length - 1];
+      el.querySelector('.exp-company').value = expList[i].company || '';
+      el.querySelector('.exp-designation').value = expList[i].designation || '';
+      el.querySelector('.exp-tenure').value = expList[i].tenure || '';
+      el.querySelector('.exp-desc').value = expList[i].description || '';
+    }
+  }
+
+  // Projects
+  const projList = data.projects || [];
+  if (projList.length > 0) {
+    const firstProj = document.querySelector('.proj-item');
+    if (firstProj) {
+      firstProj.querySelector('.proj-title').value = projList[0].name || '';
+      firstProj.querySelector('.proj-desc').value = projList[0].description || '';
+    }
+    for (let i = 1; i < projList.length; i++) {
+      addSection('projects');
+      const items = document.querySelectorAll('.proj-item');
+      const el = items[items.length - 1];
+      el.querySelector('.proj-title').value = projList[i].name || '';
+      el.querySelector('.proj-desc').value = projList[i].description || '';
+    }
+  }
+
+  // Certifications
+  const certList = data.certifications || [];
+  if (certList.length > 0) {
+    const firstCert = document.querySelector('.cert-text');
+    if (firstCert) firstCert.value = certList[0];
+    for (let i = 1; i < certList.length; i++) {
+      addSection('certifications');
+      const items = document.querySelectorAll('.cert-text');
+      items[items.length - 1].value = certList[i];
+    }
+  }
+
+  // Additional
+  if (data.languages && data.languages.length) document.getElementById('f-languages').value = data.languages.join(', ');
+  if (data.extracurricular && data.extracurricular.length) document.getElementById('f-extracurricular').value = data.extracurricular.join(', ');
+  if (data.interests && data.interests.length) document.getElementById('f-interests').value = data.interests.join(', ');
+
+  // Set active template card
+  document.querySelectorAll('.template-card').forEach(c => {
+    c.classList.remove('active');
+    if (c.dataset.style === currentStyle) c.classList.add('active');
+  });
+  document.getElementById('brand-color-row').classList.toggle('hidden', currentStyle !== 'creative');
+}
+
+// ===== AUTO SCALE PREVIEW =====
+function autoScalePreview() {
+  const pane = document.getElementById('preview-pane');
+  const inner = document.getElementById('live-preview');
+  const content = document.getElementById('resume-preview-content');
+  if (!pane || !inner || !content) return;
+
+  // Reset minHeight temporarily to get true content scrollHeight, not previous bounding boxes
+  content.style.minHeight = '0px';
+  const a4HeightPx = 1122.5; // 297mm at 96 DPI
+  const currentHeight = content.scrollHeight;
+  // Use a 5px tolerance to prevent decimal rounding from adding completely blank pages
+  const numPages = Math.max(1, Math.ceil((currentHeight - 5) / a4HeightPx));
+  content.style.minHeight = (numPages * a4HeightPx) + 'px';
+
+  // Add Page break indicators (Skipping visual marker to avoid clutter)
+  document.querySelectorAll('.page-break-line, .page-num-tag').forEach(el => el.remove());
+
+  // Scale to FILL the preview pane (both up and down)
+  const panePadding = 24; // p-3 = 12px each side
+  const paneWidth = pane.clientWidth - panePadding;
+  const resumeWidth = 794; // 210mm at 96 DPI
+  const scale = Math.min(paneWidth / resumeWidth, 1.0); // cap at 1:1 (no upscale past 100%)
+
+  inner.style.transform = `scale(${scale})`;
+  // Center the scaled content horizontally
+  const scaledWidth = resumeWidth * scale;
+  const leftOffset = Math.max(0, (pane.clientWidth - scaledWidth) / 2);
+  inner.style.paddingLeft = leftOffset + 'px';
+  // Set the wrapper height to match the scaled content
+  inner.style.height = `${(content.offsetHeight * scale) + 50}px`;
+}
+
+/**
+ * Supercharged Squeeze Logic
+ * Reduces font-size and spacing to fit resume onto 1 page
+ */
+function squeezeToFit() {
+  const content = document.getElementById('resume-preview-content');
+  if (!content) return;
+  
+  const targetHeight = 1122; // A4 height limit in px at 96 DPI
+  let currentFontSize = parseFloat(window.getComputedStyle(content).fontSize) || 16;
+  
+  // Attempt 10 iterations of size reduction
+  for(let i=0; i<10; i++) {
+    if (content.scrollHeight <= targetHeight + 10) break;
+    
+    // Subtly reduce base font size
+    currentFontSize -= 0.5;
+    content.style.fontSize = currentFontSize + 'px';
+    
+    // Subtly reduce spacing in sections
+    content.querySelectorAll('section, .mb-7, .mb-5, .mb-6').forEach(el => {
+      const mb = parseFloat(window.getComputedStyle(el).marginBottom);
+      if (mb > 4) el.style.marginBottom = (mb - 1) + 'px';
+    });
+  }
+  
+  autoScalePreview(); // Re-center and re-calculate
+  
+  if (content.scrollHeight <= targetHeight + 50) {
+    alert("✨ Successfully optimized to fit on 1 Page!");
+  } else {
+    alert("Note: Content is still slightly long. Consider editing text.");
+  }
+}
+
+window.addEventListener('resize', autoScalePreview);
+document.addEventListener('DOMContentLoaded', () => { setTimeout(autoScalePreview, 500); });
+
+// Initial load: hydrate from server data and trigger preview
+document.addEventListener('DOMContentLoaded', () => {
+  const savedDataRaw = '{{ data_json|safe|default:"{}"|escapejs }}';
+  const savedData = JSON.parse(savedDataRaw || '{}');
+  const brandColor = '{{ brand_color|default:"#6366f1" }}';
+  document.getElementById('brand-color-input').value = brandColor;
+  hydrateForm(savedData);
+  updatePreview();
+  // We call it again after preview html is likely injected
+  setTimeout(autoScalePreview, 1000);
+});
+
+// ===== COLLECT FORM DATA =====
+function collectData() {
+  const parse = (id) => document.getElementById(id)?.value?.split(',').map(s=>s.trim()).filter(Boolean) || [];
+  const data = {
+    basics: {
+      name: document.getElementById('f-name')?.value || '',
+      email: document.getElementById('f-email')?.value || '',
+      phone: document.getElementById('f-phone')?.value || '',
+      linkedin: document.getElementById('f-linkedin')?.value || '',
+      address: document.getElementById('f-address')?.value || '',
+      summary: document.getElementById('f-summary')?.value || '',
+      photo: photoDataUrl || ''
+    },
+    skills: {
+      technical: parse('f-tech-skills'),
+      soft: parse('f-soft-skills')
+    },
+    education: [...document.querySelectorAll('.edu-item')].map(el => ({
+      degree: el.querySelector('.edu-degree')?.value || '',
+      institution: el.querySelector('.edu-institution')?.value || '',
+      percentage: el.querySelector('.edu-percentage')?.value || '',
+      year: el.querySelector('.edu-year')?.value || ''
+    })).filter(e => e.degree),
+    experience: [...document.querySelectorAll('.exp-item')].map(el => ({
+      company: el.querySelector('.exp-company')?.value || '',
+      designation: el.querySelector('.exp-designation')?.value || '',
+      tenure: el.querySelector('.exp-tenure')?.value || '',
+      description: el.querySelector('.exp-desc')?.value || ''
+    })).filter(e => e.company),
+    projects: [...document.querySelectorAll('.proj-item')].map(el => ({
+      name: el.querySelector('.proj-title')?.value || '',
+      description: el.querySelector('.proj-desc')?.value || ''
+    })).filter(p => p.name),
+    certifications: [...document.querySelectorAll('.cert-text')].map(el => el.value).filter(Boolean),
+    languages: parse('f-languages'),
+    extracurricular: parse('f-extracurricular'),
+    interests: parse('f-interests')
+  };
+  return data;
+}
+
+// ===== LIVE PREVIEW =====
+function updatePreview() {
+  const data = collectData();
+  const brandColor = document.getElementById('brand-color-input')?.value || '#6366f1';
+  fetch("{% url 'resume_preview_fragment' %}", {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+    body: JSON.stringify({ style: currentStyle, data: data, brand_color: brandColor })
+  })
+  .then(r => r.text())
+  .then(html => {
+    document.getElementById('live-preview').innerHTML = html;
+    // Re-apply any custom font sizes set by the user, which also triggers autoScalePreview
+    requestAnimationFrame(() => {
+        applyFontSizeOffset();
+        setTimeout(autoScalePreview, 50);
+    });
+  })
+  .catch(err => console.error('Preview error:', err));
+}
+
+// ===== TEMPLATE SWITCH =====
+function switchTemplate(style, el) {
+  currentStyle = style;
+  document.querySelectorAll('.template-card').forEach(c => c.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('brand-color-row').classList.toggle('hidden', style !== 'creative');
+  updatePreview();
+}
+
+// ===== PHOTO HANDLER =====
+function handlePhoto(input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = e => { photoDataUrl = e.target.result; updatePreview(); };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+// ===== ADD DYNAMIC SECTIONS =====
+function addSection(type) {
+  const templates = {
+    education: `<div class="edu-item glass-light rounded-xl p-3 mb-2 space-y-2 fade-up">
+      <div class="flex justify-between"><span></span><button class="text-red-400 text-[10px] hover:text-red-300" onclick="this.closest('.edu-item').remove();updatePreview()">✕ Remove</button></div>
+      <input type="text" class="input-dark w-full edu-degree" placeholder="Degree" oninput="updatePreview()"/>
+      <input type="text" class="input-dark w-full edu-institution" placeholder="Institution" oninput="updatePreview()"/>
+      <div class="flex gap-2"><input type="text" class="input-dark w-1/2 edu-percentage" placeholder="%" oninput="updatePreview()"/><input type="text" class="input-dark w-1/2 edu-year" placeholder="Year" oninput="updatePreview()"/></div></div>`,
+    experience: `<div class="exp-item glass-light rounded-xl p-3 mb-2 space-y-2 fade-up">
+      <div class="flex justify-between"><span></span><button class="text-red-400 text-[10px] hover:text-red-300" onclick="this.closest('.exp-item').remove();updatePreview()">✕ Remove</button></div>
+      <input type="text" class="input-dark w-full exp-company" placeholder="Company" oninput="updatePreview()"/>
+      <input type="text" class="input-dark w-full exp-designation" placeholder="Job Title" oninput="updatePreview()"/>
+      <input type="text" class="input-dark w-full exp-tenure" placeholder="Tenure" oninput="updatePreview()"/>
+      <div class="flex items-start gap-2"><textarea class="input-dark w-full exp-desc" rows="2" placeholder="Description..." oninput="updatePreview()"></textarea><button class="star-btn mt-1" onclick="starPolish(this.previousElementSibling)">⭐</button></div></div>`,
+    projects: `<div class="proj-item glass-light rounded-xl p-3 mb-2 space-y-2 fade-up">
+      <div class="flex justify-between"><span></span><button class="text-red-400 text-[10px] hover:text-red-300" onclick="this.closest('.proj-item').remove();updatePreview()">✕ Remove</button></div>
+      <input type="text" class="input-dark w-full proj-title" placeholder="Project Title" oninput="updatePreview()"/>
+      <div class="flex items-start gap-2"><textarea class="input-dark w-full proj-desc" rows="2" placeholder="Description..." oninput="updatePreview()"></textarea><button class="star-btn mt-1" onclick="starPolish(this.previousElementSibling)">⭐</button></div></div>`,
+    certifications: `<div class="cert-item glass-light rounded-xl p-3 mb-2 fade-up">
+      <div class="flex justify-between mb-1"><span></span><button class="text-red-400 text-[10px] hover:text-red-300" onclick="this.closest('.cert-item').remove();updatePreview()">✕ Remove</button></div>
+      <input type="text" class="input-dark w-full cert-text" placeholder="Certification" oninput="updatePreview()"/></div>`
+  };
+  document.getElementById(type + '-list').insertAdjacentHTML('beforeend', templates[type]);
+}
+
+// ===== AI: SUMMARY =====
+async function generateAISummary() {
+  const data = collectData();
+  const btn = event.target;
+  btn.textContent = '⏳ Generating...'; btn.disabled = true;
+  try {
+    const res = await fetch("{% url 'resume_ai_summary' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify(data)
+    });
+    const result = await res.json();
+    if (result.summary) { document.getElementById('f-summary').value = result.summary; updatePreview(); }
+  } catch(e) { console.error(e); }
+  btn.textContent = '✨ AI Generate'; btn.disabled = false;
+}
+
+// ===== AI: RECOMMEND SKILLS =====
+async function recommendSkills() {
+  const data = collectData();
+  const btn = event.currentTarget;
+  const container = document.getElementById('skill-recommendations');
+  const tagBox = document.getElementById('rec-tags-container');
+  
+  btn.textContent = '⏳ Analyzing...'; btn.disabled = true;
+  try {
+    const res = await fetch("{% url 'resume_recommend_skills' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ resume_data: data })
+    });
+    const result = await res.json();
+    
+    tagBox.innerHTML = '';
+    const allRecs = [
+      ...(result.technical || []).map(s => ({ name: s, type: 'tech' })),
+      ...(result.soft || []).map(s => ({ name: s, type: 'soft' }))
+    ];
+    
+    if (allRecs.length > 0) {
+      container.classList.remove('hidden');
+      allRecs.forEach(skill => {
+        const span = document.createElement('span');
+        span.className = `cursor-pointer text-[9px] px-2 py-0.5 rounded-full font-medium transition-all hover:scale-105 ${skill.type==='tech' ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 hover:bg-indigo-500/40' : 'bg-amber-500/20 text-amber-300 border border-amber-500/30 hover:bg-amber-500/40'}`;
+        span.textContent = `+ ${skill.name}`;
+        span.onclick = () => addSkillTag(skill.name, skill.type, span);
+        tagBox.appendChild(span);
+      });
+    }
+  } catch(e) { console.error(e); }
+  btn.textContent = '✨ AI Recommend'; btn.disabled = false;
+}
+
+function addSkillTag(name, type, el) {
+  const targetId = type === 'tech' ? 'f-tech-skills' : 'f-soft-skills';
+  const input = document.getElementById(targetId);
+  const current = input.value.split(',').map(s=>s.trim()).filter(Boolean);
+  
+  if (!current.includes(name)) {
+    current.push(name);
+    input.value = current.join(', ');
+    updatePreview();
+    // Visual feedback
+    el.classList.add('opacity-30', 'pointer-events-none');
+    el.textContent = `✓ ${name}`;
+  }
+}
+async function runATSMatch() {
+  const jd = document.getElementById('ats-jd').value;
+  if (!jd.trim()) return alert('Please paste a Job Description.');
+  const data = collectData();
+  const btn = event.target;
+  btn.textContent = '⏳ Analyzing...'; btn.disabled = true;
+  try {
+    const res = await fetch("{% url 'resume_ats_match' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ resume_data: data, job_description: jd })
+    });
+    const result = await res.json();
+    const score = result.score || 0;
+    document.getElementById('ats-result').classList.remove('hidden');
+    document.getElementById('ats-score-text').textContent = score + '%';
+    document.getElementById('ats-arc').setAttribute('stroke-dasharray', `${score}, 100`);
+    const color = score >= 70 ? '#22c55e' : score >= 40 ? '#f59e0b' : '#ef4444';
+    document.getElementById('ats-arc').setAttribute('stroke', color);
+    // Keywords
+    const kwDiv = document.getElementById('ats-keywords');
+    kwDiv.innerHTML = '<p class="text-[10px] font-semibold text-slate-300 mb-1">Keywords Found:</p>';
+    (result.keywords_found || []).forEach(k => { kwDiv.innerHTML += `<span class="inline-block text-[9px] bg-green-500/20 text-green-400 px-2 py-0.5 rounded-full mr-1 mb-1">${k}</span>`; });
+    kwDiv.innerHTML += '<p class="text-[10px] font-semibold text-slate-300 mb-1 mt-2">Missing Keywords:</p>';
+    (result.keywords_missing || []).forEach(k => { kwDiv.innerHTML += `<span class="inline-block text-[9px] bg-red-500/20 text-red-400 px-2 py-0.5 rounded-full mr-1 mb-1">${k}</span>`; });
+  } catch(e) { console.error(e); }
+  btn.textContent = 'Analyze Match'; btn.disabled = false;
+}
+
+// ===== AI: TONE SLIDER =====
+async function adjustTone() {
+  const toneVal = document.getElementById('tone-slider').value;
+  const data = collectData();
+  const status = document.getElementById('tone-status');
+  status.classList.remove('hidden');
+  status.textContent = '⏳ Adjusting tone...';
+  try {
+    const res = await fetch("{% url 'resume_tone_adjust' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ resume_data: data, tone: toneVal })
+    });
+    const result = await res.json();
+    if (result.summary) { document.getElementById('f-summary').value = result.summary; }
+    if (result.experience) {
+      const expItems = document.querySelectorAll('.exp-item');
+      result.experience.forEach((desc, i) => {
+        if (expItems[i]) expItems[i].querySelector('.exp-desc').value = desc;
+      });
+    }
+    updatePreview();
+    status.textContent = '✅ Tone applied!';
+    setTimeout(() => status.classList.add('hidden'), 2000);
+  } catch(e) { console.error(e); status.textContent = '❌ Error adjusting tone'; }
+}
+
+// ===== AI: STAR POLISHER =====
+async function starPolish(textarea) {
+  const text = textarea.value;
+  if (!text.trim()) return alert('Write something first!');
+  const orig = textarea.value;
+  textarea.value = '⏳ Polishing with STAR method...';
+  textarea.disabled = true;
+  try {
+    const res = await fetch("{% url 'resume_star_polish' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ text: text })
+    });
+    const result = await res.json();
+    textarea.value = result.polished || orig;
+    updatePreview();
+  } catch(e) { textarea.value = orig; console.error(e); }
+  textarea.disabled = false;
+}
+
+// ===== SAVE RESUME =====
+async function saveResume() {
+  const data = collectData();
+  const brandColor = document.getElementById('brand-color-input')?.value || '#6366f1';
+  try {
+    const res = await fetch("{% url 'resume_save' %}", {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-CSRFToken': getCookie('csrftoken') },
+      body: JSON.stringify({ style: currentStyle, data: data, brand_color: brandColor })
+    });
+    const result = await res.json();
+    if (result.status === 'success') {
+      const toast = document.createElement('div');
+      toast.className = 'fixed bottom-5 right-5 bg-green-500 text-white px-6 py-3 rounded-xl shadow-2xl text-sm font-semibold z-50 fade-up';
+      toast.textContent = '✅ Resume saved successfully!';
+      document.body.appendChild(toast);
+      setTimeout(() => toast.remove(), 3000);
+    }
+  } catch(e) { console.error(e); }
+}
+
+/**
+ * PDF Export — Precision Alignment Fix.
+ * Synchronizes the clone and renderer at an exact 793.7px (210mm @ 96DPI)
+ * width to eliminate sub-pixel misalignment in Modernist and Creative themes.
+ */
+function downloadPDF() {
+  const original = document.getElementById('resume-preview-content');
+  if (!original) return;
+
+  // Exact 210mm at 96 DPI is ~794px
+  const A4W = 794; 
+  const A4H = 1122.5; // A4 Height
+
+  // 1. Instant Solid Overlay
+  const overlay = document.createElement('div');
+  Object.assign(overlay.style, {
+    position: 'fixed', inset: '0', zIndex: '2147483647',
+    background: '#0f172a', display: 'flex',
+    alignItems: 'center', justifyContent: 'center',
+    flexDirection: 'column', gap: '24px',
+    cursor: 'wait', userSelect: 'none'
+  });
+  overlay.innerHTML = `
+    <div style="width:64px;height:64px;border:5px solid rgba(255,255,255,0.05);border-top-color:#6366f1;border-radius:50%;animation:pdfspin 1s cubic-bezier(0.4,0,0.2,1) infinite"></div>
+    <div style="text-align:center">
+      <h2 style="color:white;font-family:Inter,sans-serif;font-size:20px;margin:0 0 10px 0;letter-spacing:0.03em;font-weight:700">Generating PDF</h2>
+      <p style="color:#64748b;font-family:Inter,sans-serif;font-size:14px;margin:0">Aligning and optimizing pagination...</p>
+    </div>
+    <style>@keyframes pdfspin{to{transform:rotate(360deg)}}</style>
+  `;
+  document.body.appendChild(overlay);
+
+  // --- AUTO-FIT LOGIC BEFORE CLONING ---
+  let pdfFontSqueeze = -1; // Unconditionally reduce font size by -1px for a cleaner professional look
+  
+  const applyPdfSqueeze = (squeezeValue) => {
+    // If user hasn't set inline sizes, scale root. Otherwise scale inline elements
+    if (original.querySelectorAll('[data-orig-size]').length === 0) {
+      const base = parseFloat(window.getComputedStyle(original).fontSize) || 16;
+      original.style.fontSize = (base + squeezeValue) + 'px';
+    } else {
+      original.querySelectorAll('[data-orig-size]').forEach(el => {
+        const origSize = parseFloat(el.getAttribute('data-orig-size'));
+        el.style.fontSize = Math.max(7, origSize + fontSizeOffset + squeezeValue) + 'px';
+      });
+    }
+    autoScalePreview();
+  };
+
+  applyPdfSqueeze(pdfFontSqueeze);
+
+  // If content remains slightly over 1 page, gently squeeze spacing
+  if (original.scrollHeight > A4H) {
+    for(let i=0; i<8; i++) {
+      if (original.scrollHeight <= A4H + 5) break;
+      pdfFontSqueeze -= 0.5;
+      if (pdfFontSqueeze < -6) break; /* Stop squeezing entirely at some point, let it spill */
+      
+      applyPdfSqueeze(pdfFontSqueeze);
+      
+      original.querySelectorAll('section, .mb-6, .mb-4').forEach(el => {
+        const mb = parseFloat(window.getComputedStyle(el).marginBottom);
+        if (mb > 4) el.style.marginBottom = (mb - 1) + 'px';
+      });
+    }
+  }
+
+  // 2. Clone and Precision Strip
+  const clone = original.cloneNode(true);
+  clone.removeAttribute('id');
+  clone.querySelectorAll('.page-break-line, .page-num-tag, [data-html2canvas-ignore]').forEach(n => n.remove());
+
+  // Force Layout Stability
+  const stabilize = (el) => {
+    // DO NOT override height for the root container or absolutely positioned backgrounds!
+    if (el !== clone && !el.classList.contains('absolute')) {
+      el.style.setProperty('min-height', '0', 'important');
+      el.style.setProperty('height', 'auto', 'important');
+      el.style.setProperty('max-height', 'none', 'important');
+    }
+    
+    el.style.setProperty('box-sizing', 'border-box', 'important');
+    el.style.setProperty('overflow', 'visible', 'important'); // Allow natural overflow for pagination
+    
+    // Remove specific tailwind height classes
+    const cls = Array.from(el.classList);
+    if (cls.some(c => c.startsWith('min-h-') || c === 'h-full' || c === 'h-screen')) {
+      if (el !== clone) el.classList.remove('min-h-[297mm]', 'min-h-full', 'min-h-screen', 'h-full', 'h-screen');
+    }
+    
+    // Fix for sidebars: ensure the aside doesn't shrink or stretch improperly
+    if (el.tagName === 'ASIDE' || el.classList.contains('w-[72mm]')) {
+       el.style.setProperty('width', '272px', 'important'); 
+       el.style.setProperty('min-width', '272px', 'important');
+       el.style.setProperty('flex-shrink', '0', 'important');
+    }
+    
+    // Protect individual items from breaking internally, but DO NOT protect entire sections
+    if (el.style.breakInside === 'avoid' || el.style.pageBreakInside === 'avoid' || el.classList.contains('experience-item') || el.classList.contains('edu-item') || el.classList.contains('project-item')) {
+       el.style.setProperty('page-break-inside', 'avoid', 'important');
+       el.style.setProperty('break-inside', 'avoid', 'important');
+    }
+  };
+
+  stabilize(clone);
+  clone.querySelectorAll('*').forEach(stabilize);
+
+  // Clone Root Styling — Must match box-sizing and A4 bounds
+  Object.assign(clone.style, {
+    width: A4W + 'px', 
+    maxWidth: A4W + 'px',
+    height: original.style.minHeight, // FORCE explicit multi-page height calculated by autoScalePreview
+    margin: '0', 
+    padding: '0',
+    boxShadow: 'none', 
+    border: 'none',
+    background: 'white', 
+    transform: 'none',
+    position: 'relative'
+  });
+
+  // 3. Hidden capture area
+  const captureBox = document.createElement('div');
+  Object.assign(captureBox.style, {
+    position: 'fixed', top: '0', left: '-10000px',
+    width: A4W + 'px', 
+    zIndex: '1', 
+    background: 'white'
+  });
+  captureBox.appendChild(clone);
+  document.body.appendChild(captureBox);
+
+  // 4. Generate with windowWidth sync
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      const opt = {
+        margin: [0, 0, 0, 0],
+        filename: (document.getElementById('f-name')?.value || 'Resume').split(' ')[0] + '_Resume.pdf',
+        image: { type: 'jpeg', quality: 1.0 },
+        html2canvas: {
+          scale: 2, 
+          useCORS: true, 
+          letterRendering: true,
+          width: A4W, 
+          windowWidth: A4W,
+          height: Math.floor(parseFloat(original.style.minHeight)) - 1,
+          windowHeight: Math.floor(parseFloat(original.style.minHeight)),
+          scrollX: 0, 
+          scrollY: 0, 
+          x: 0, 
+          y: 0,
+          backgroundColor: '#ffffff'
+        },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },
+        pagebreak: { mode: ['css', 'legacy'] }
+      };
+
+      html2pdf().set(opt).from(clone).save()
+        .then(() => {
+          overlay.remove();
+          captureBox.remove();
+          updatePreview(); // Complete UI reset after generation
+        })
+        .catch(err => {
+          console.error('PDF error:', err);
+          overlay.remove();
+          captureBox.remove();
+          updatePreview(); // Complete UI reset after generation
+        });
+    }, 400); 
+  });
+}
+
+</script>
+{% endblock %}

@@ -1,0 +1,110 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Home | Career Companion{% endblock %}
+{% block header_title %}Home{% endblock %}
+
+{% block content %}
+<div class="p-8 max-w-7xl mx-auto space-y-12 pb-24">
+    
+    <!-- Simple Greeting Hero -->
+    <div class="py-10 flex flex-col items-center justify-center text-center space-y-4">
+        {% if user.is_authenticated %}
+            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center text-3xl mb-2 shadow-sm">👋</div>
+            <h1 class="heading-1 text-slate-900 leading-tight">Welcome back, {{ display_name }}.</h1>
+            <p class="text-slate-500 text-lg max-w-2xl leading-relaxed">Your professional growth environment is ready. Explore the core services and tools powered by the Career Companion ecosystem below.</p>
+        {% else %}
+            <div class="w-16 h-16 bg-brand-50 rounded-2xl flex items-center justify-center text-3xl mb-2 shadow-sm">🚀</div>
+            <h1 class="heading-1 text-slate-900 leading-tight">AI Career Companion</h1>
+            <p class="text-slate-500 text-lg max-w-2xl leading-relaxed">Transition from academic excellence to professional success with our integrated suite of growth tools.</p>
+            <div class="flex gap-4 pt-6">
+                <a href="{% url 'login' %}" class="btn-primary px-8">Sign In</a>
+                <a href="{% url 'register' %}" class="btn-secondary px-8">Register</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Professional Feature Showcase Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        
+        <!-- Block 1: Resume Builder -->
+        <div class="stitch-card bg-white border-slate-100 p-8 flex flex-col items-start gap-5 transition-all hover:border-brand-200 group">
+            <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center text-xl group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+            </div>
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 font-outfit">Resume Builder</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Intelligent data input with a live-editing canvas. Features include automated STAR-logic content conversion, real-time ATS scoring, and professional tone adjustments for targeted applications.</p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-brand-600 bg-brand-50 px-2 py-1 rounded">Live Canvas</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-amber-600 bg-amber-50 px-2 py-1 rounded">STAR Logic</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 px-2 py-1 rounded">ATS Optimized</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 2: Advanced Mock Interview Environment -->
+        <div class="stitch-card bg-white border-slate-100 p-8 flex flex-col items-start gap-5 transition-all hover:border-brand-200 group">
+            <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center text-xl group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" /></svg>
+            </div>
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 font-outfit">Advanced Mock Interviews</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Multimodal Voice and Text-based simulations with subject-specific question banks. Receive comprehensive evaluation of your sentiment, accuracy, and professional delivery.</p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-2 py-1 rounded">Direct Voice</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-rose-600 bg-rose-50 px-2 py-1 rounded">Sentiment Analysis</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 3: Triple-Tier Assessment Engine -->
+        <div class="stitch-card bg-white border-slate-100 p-8 flex flex-col items-start gap-5 transition-all hover:border-brand-200 group">
+            <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center text-xl group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" /></svg>
+            </div>
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 font-outfit">Triple-Tier Assessments</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Subject-specific and Company-specific technical tests paired with reasoning and cognitive drills. All assessments are proctored for maximum result integrity.</p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-600 bg-slate-50 px-2 py-1 rounded">Company Tracks</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-orange-600 bg-orange-50 px-2 py-1 rounded">Cognitive Drills</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-blue-600 bg-blue-50 px-2 py-1 rounded">Proctoring</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 4: Unified Performance Analytics -->
+        <div class="stitch-card bg-white border-slate-100 p-8 flex flex-col items-start gap-5 transition-all hover:border-brand-200 group">
+            <div class="w-12 h-12 rounded-xl bg-slate-50 text-slate-600 flex items-center justify-center text-xl group-hover:bg-brand-50 group-hover:text-brand-600 transition-colors">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" /></svg>
+            </div>
+            <div class="space-y-4">
+                <h3 class="text-xl font-bold text-slate-900 font-outfit">Performance Analytics</h3>
+                <p class="text-slate-500 text-sm leading-relaxed">Centralized dashboard aggregating your entire history. Deep-dive into behavioral and technical metrics with clear visualizations of your current market-readiness.</p>
+                <div class="flex flex-wrap gap-2 pt-2">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-violet-600 bg-violet-50 px-2 py-1 rounded">Trend Mapping</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-cyan-600 bg-cyan-50 px-2 py-1 rounded">Market Readiness</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Block 5: 24/7 Career Orchestrator (Chatbot) -->
+        <div class="stitch-card bg-white border-slate-100 p-8 flex flex-col items-start gap-5 transition-all hover:border-brand-200 group lg:col-span-2">
+            <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+                <div class="w-14 h-14 shrink-0 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center text-2xl shadow-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" /></svg>
+                </div>
+                <div class="space-y-4 flex-1">
+                    <h3 class="text-xl font-bold text-slate-900 font-outfit">24/7 Career Orchestrator</h3>
+                    <p class="text-slate-500 text-sm leading-relaxed">On-demand career coaching and platform navigation. Our context-aware orchestrator provides advice tailored to your latest resume data and assessment performance, serving as your personal career strategist.</p>
+                </div>
+                <div class="hidden md:flex flex-col gap-2 shrink-0">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full text-center">Context-Aware</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full text-center">Real-time Coaching</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

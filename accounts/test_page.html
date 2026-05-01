@@ -1,0 +1,23 @@
+def submit_test(request, subject_id):
+    subject = get_object_or_404(Subject, id=subject_id)
+    questions = Question.objects.filter(subject=subject)
+
+    score = 0
+    total = 20
+
+    for question in questions[:20]:
+        selected = request.POST.get(str(question.id))
+        if selected == question.correct_answer:
+            score += 1
+
+    percentage = (score / total) * 100
+
+    TestResult.objects.create(
+        user=request.user,
+        subject=subject,
+        score=score,
+        total_questions=total,
+        percentage=percentage
+    )
+
+    return redirect('dashboard')

@@ -1,0 +1,92 @@
+<div class="space-y-12">
+    <div class="text-center mb-8">
+        <h2 class="heading-2 text-brand-700">Roadmap for: {{ roadmap.dream_role }}</h2>
+    </div>
+
+    <!-- The Timeline/Stepper View -->
+    <div class="relative max-w-4xl mx-auto pl-10 sm:pl-0">
+        <!-- Vertical Line Background -->
+        <div class="absolute left-4 sm:left-1/2 top-0 bottom-0 w-0.5 bg-slate-200 -translate-x-1/2"></div>
+
+        {% for milestone in roadmap.roadmap_data %}
+            <div class="relative flex flex-col sm:flex-row items-center mb-16 {% if forloop.counter|divisibleby:2 %}sm:flex-row-reverse{% endif %}">
+                <!-- Milestone Circle Indicator -->
+                <div class="absolute left-4 sm:left-1/2 -translate-x-1/2 flex items-center justify-center">
+                    <div class="w-12 h-12 rounded-full border-4 border-white shadow-lg flex items-center justify-center z-10 
+                        {% if milestone.is_current %}
+                            bg-brand-600 animate-pulse ring-4 ring-brand-200
+                        {% else %}
+                            bg-slate-300
+                        {% endif %}">
+                        {% if milestone.is_current %}
+                            <span class="text-white text-xs font-bold">YOU</span>
+                        {% else %}
+                            <span class="text-white text-lg font-bold">{{ forloop.counter }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Milestone Content Card -->
+                <div class="w-full sm:w-1/2 px-4 sm:px-12 mt-4 sm:mt-0">
+                    <div class="stitch-card group hover:-translate-y-2 transition-all duration-500 relative overflow-hidden bg-white/40 backdrop-blur-sm">
+                        <!-- Background Glow on Current Step -->
+                        {% if milestone.is_current %}
+                            <div class="absolute -right-8 -top-8 w-24 h-24 bg-brand-500/10 blur-3xl rounded-full"></div>
+                        {% endif %}
+
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <span class="text-[10px] uppercase font-black tracking-widest text-brand-600 bg-brand-50 px-2 py-1 rounded-md">{{ milestone.years_at_level }}</span>
+                                <h3 class="heading-2 mt-2 group-hover:text-brand-600 transition-colors">{{ milestone.title }}</h3>
+                                <p class="text-[11px] font-bold text-emerald-600 uppercase mt-1 tracking-wider">{{ milestone.estimated_salary }}</p>
+                            </div>
+                        </div>
+
+                        <p class="text-sm text-slate-600 leading-relaxed">{{ milestone.description }}</p>
+
+                        <!-- Skill Checklist (Reveals on Hover/Group Focus) -->
+                        <div class="mt-6 space-y-3">
+                            <h4 class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Core Skills to Master</h4>
+                            <div class="flex flex-wrap gap-2">
+                                {% for skill in milestone.core_skills %}
+                                    <span class="text-[10px] bg-white border border-slate-100 rounded-lg px-3 py-1.5 font-bold text-slate-700 shadow-sm transition-all group-hover:border-brand-300">
+                                        ✓ {{ skill }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <!-- Level Up CTA -->
+                        {% if milestone.recommended_test and not milestone.is_current %}
+                        <div class="mt-8 border-t border-slate-100/50 pt-4">
+                            <a href="{% url 'career_test' %}" class="btn-secondary w-full text-center text-[10px] uppercase font-black tracking-widest shadow-none hover:shadow-soft flex items-center justify-center gap-2">
+                                📈 Level Up: Take {{ milestone.recommended_test }} Test
+                            </a>
+                        </div>
+                        {% endif %}
+
+                        {% if milestone.is_current %}
+                            <div class="absolute top-2 right-2">
+                                <span class="bg-brand-600 text-white text-[8px] font-black px-2 py-0.5 rounded-full shadow-glow">CURRENT LEVEL</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <!-- Spacer for the other side on desktop -->
+                <div class="hidden sm:block sm:w-1/2"></div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- Final Dream Role Insight -->
+    <div class="max-w-xl mx-auto pt-10">
+        <div class="bg-slate-900 rounded-3xl p-8 text-center text-white relative overflow-hidden shadow-2xl">
+              <div class="absolute -left-10 top-0 w-32 h-32 bg-brand-500 rounded-full blur-[80px] opacity-20"></div>
+              <div class="absolute -right-10 bottom-0 w-32 h-32 bg-indigo-500 rounded-full blur-[80px] opacity-20"></div>
+              <h3 class="text-2xl font-black font-outfit mb-2">Strategy for {{ roadmap.dream_role }}</h3>
+              <p class="text-slate-400 text-sm leading-relaxed mb-6">Based on your current {{ user.profile.tests.count|default:"Subject" }} results, we recommend focusing on <span class="text-brand-400 font-bold">System Design</span> and <span class="text-brand-400 font-bold">Architecture</span> to bypass the mid-senior level bottleneck.</p>
+              <button class="btn-primary" onclick="window.print()">📥 Download Career Strategy</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Recommendations - Student Career Companion</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        body { 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            min-height: 100vh; 
+            padding: 20px; 
+        }
+        
+        .container { 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            background: rgba(255,255,255,0.95); 
+            border-radius: 20px; 
+            padding: 40px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+        }
+        
+        .header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+        }
+        
+        h1 { 
+            color: #333; 
+            margin-bottom: 10px; 
+            font-size: 2.5em; 
+            background: linear-gradient(135deg, #667eea, #764ba2); 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+        }
+        
+        .subtitle { 
+            color: #666; 
+            font-size: 1.2em; 
+            margin-bottom: 20px; 
+        }
+        
+        .form-section { 
+            background: #f8f9ff; 
+            padding: 30px; 
+            border-radius: 15px; 
+            margin-bottom: 40px; 
+            border: 2px solid #e8f4fd; 
+        }
+        
+        label { 
+            display: block; 
+            font-weight: 600; 
+            color: #444; 
+            margin-bottom: 10px; 
+            font-size: 1.1em; 
+        }
+        
+        textarea { 
+            width: 100%; 
+            padding: 15px; 
+            border: 2px solid #e1e5e9; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            resize: vertical; 
+            min-height: 120px; 
+            transition: all 0.3s; 
+            font-family: inherit;
+        }
+        
+        textarea:focus { 
+            outline: none; 
+            border-color: #667eea; 
+            box-shadow: 0 0 0 3px rgba(102,126,234,0.1); 
+            transform: translateY(-2px);
+        }
+        
+        .recommend-btn { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 15px 40px; 
+            border: none; 
+            border-radius: 50px; 
+            font-size: 1.2em; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            display: block; 
+            margin: 20px auto 0; 
+        }
+        
+        .recommend-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 35px rgba(102,126,234,0.4); 
+        }
+        
+        .results-section { 
+            margin-top: 40px; 
+        }
+        
+        .results-header { 
+            text-align: center; 
+            color: #333; 
+            margin-bottom: 30px; 
+            font-size: 1.8em; 
+        }
+        
+        .recommendation-card { 
+            background: white; 
+            border-radius: 15px; 
+            padding: 25px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); 
+            border-left: 5px solid #667eea; 
+            transition: all 0.3s; 
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recommendation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .recommendation-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15); 
+        }
+        
+        .rec-title { 
+            font-size: 1.4em; 
+            font-weight: 700; 
+            color: #333; 
+            margin-bottom: 10px; 
+        }
+        
+        .rec-skills { 
+            color: #667eea; 
+            font-weight: 600; 
+            margin-bottom: 12px; 
+            font-size: 0.95em;
+        }
+        
+        .rec-desc { 
+            color: #666; 
+            line-height: 1.6; 
+            margin-bottom: 15px;
+        }
+        
+        .match-score { 
+            background: linear-gradient(135deg, #10b981, #059669); 
+            color: white; 
+            padding: 8px 16px; 
+            border-radius: 25px; 
+            font-size: 0.9em; 
+            font-weight: 600; 
+            display: inline-block;
+        }
+        
+        .no-results { 
+            text-align: center; 
+            color: #888; 
+            font-style: italic; 
+            padding: 40px; 
+            background: #f8f9ff; 
+            border-radius: 15px; 
+            border: 2px dashed #e1e5e9;
+        }
+        
+        .back-link { 
+            display: inline-block; 
+            margin-top: 30px; 
+            padding: 12px 24px; 
+            background: white; 
+            color: #667eea; 
+            text-decoration: none; 
+            font-weight: 600; 
+            border-radius: 50px; 
+            border: 2px solid #667eea;
+            transition: all 0.3s;
+        }
+        
+        .back-link:hover { 
+            background: #667eea; 
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        @media (max-width: 768px) {
+            .container { padding: 20px; }
+            h1 { font-size: 2em; }
+            .form-section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>🎯 Career Recommendations</h1>
+            <p class="subtitle">Enter your skills to discover your perfect tech career path</p>
+        </div>
+        
+        <!-- Skills Input Form -->
+        <form method="post" class="form-section">
+            {% csrf_token %}
+            <label for="skills">
+                💻 Your Skills & Interests (comma-separated):
+            </label>
+            <textarea 
+                id="skills" 
+                name="skills" 
+                placeholder="e.g., Python, Django, cybersecurity, machine learning, blockchain, data science, solidity, tensorflow..." 
+                required
+            >{% if request.POST.skills %}{{ request.POST.skills }}{% endif %}</textarea>
+            <button type="submit" class="recommend-btn">
+                ✨ Get My Career Recommendations
+            </button>
+        </form>
+
+        <!-- Results -->
+        {% if recommendations %}
+            <div class="results-section">
+                <h2 class="results-header">Your Top Career Matches ✨</h2>
+                {% for rec in recommendations %}
+                    <div class="recommendation-card">
+                        <h3 class="rec-title">{{ rec.title }}</h3>
+                        <div class="rec-skills">💻 Skills Match: {{ rec.skills }}</div>
+                        <p class="rec-desc">{{ rec.description }}</p>
+                        <div class="match-score">
+                            ✅ {{ rec.match_score }} Match Confidence
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% elif request.method == 'POST' %}
+            <div class="no-results">
+                <h3>No matches found 😔</h3>
+                <p>Try different skills or combinations. Examples: "Python ML", "cybersecurity blockchain", "Django React"</p>
+            </div>
+        {% endif %}
+
+        <!-- Back Button -->
+        <a href="{% url 'home' %}" class="back-link">
+            ← Back to Home
+        </a>
+    </div>
+
+{% include "accounts/chat_widget.html" %}
+
+</body>
+</html>

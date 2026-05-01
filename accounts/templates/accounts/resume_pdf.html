@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Export</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.5in;
+        }
+        body {
+            font-family: 'Helvetica', 'Arial', sans-serif;
+            color: #334155; /* Slate 700 */
+            line-height: 1.5;
+            margin: 0;
+            padding: 0;
+            background: white;
+        }
+
+        /* Structural Constraints - Match Image B */
+        .resume-container {
+            width: 100%;
+        }
+
+        /* Section Integrity (No Break) */
+        section, .card, .experience-item, .project-item {
+            page-break-inside: avoid;
+            break-inside: avoid;
+            margin-bottom: 20px;
+        }
+
+        /* Header Style - Match Image B */
+        .header {
+            background-color: #6366f1; /* Brand Indigo/Purple */
+            color: white;
+            padding: 30px;
+            margin: -0.5in -0.5in 25px -0.5in; /* Bleed to edges */
+            text-align: left;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        /* Two-Column Layout */
+        .main-grid {
+            display: table;
+            width: 100%;
+            border-spacing: 0;
+        }
+        .column-left {
+            display: table-cell;
+            width: 65%;
+            padding-right: 30px;
+            vertical-align: top;
+        }
+        .column-right {
+            display: table-cell;
+            width: 35%;
+            vertical-align: top;
+            padding-left: 20px;
+            border-left: 1px solid #e2e8f0;
+        }
+
+        /* Typography & Titles */
+        h2 {
+            color: #0f172a; /* Slate 900 */
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border-bottom: 2px solid #6366f1;
+            padding-bottom: 5px;
+            margin-bottom: 15px;
+            margin-top: 0;
+        }
+
+        /* List Alignment */
+        ul {
+            padding-left: 18px;
+            margin: 10px 0;
+        }
+        li {
+            margin-bottom: 8px;
+            color: #475569; /* Slate 600 */
+        }
+
+        /* Bullet Alignment Axis */
+        .experience-item h3 {
+            font-size: 14px;
+            margin: 0;
+            color: #1e293b;
+        }
+        .experience-item .meta {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 5px;
+        }
+
+        /* Skills Progress Bars (Static Print Version) */
+        .skill-row {
+            margin-bottom: 10px;
+        }
+        .skill-name {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 3px;
+        }
+        .skill-bar-bg {
+            background: #f1f5f9;
+            height: 6px;
+            border-radius: 3px;
+            width: 100%;
+        }
+        .skill-bar-fill {
+            background: #6366f1;
+            height: 6px;
+            border-radius: 3px;
+        }
+
+        /* Contact Details */
+        .contact-item {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #475569;
+        }
+
+        /* Dynamic Scaling Utility */
+        .compact {
+            font-size: 90%;
+            line-height: 1.3;
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-container {% if compact %}compact{% endif %}">
+        <header class="header">
+            <h1>{{ data.basics.name|upper }}</h1>
+            <p>{{ data.basics.label|default:"Professional Resume" }}</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Left Column: Summary and Experience -->
+            <div class="column-left">
+                <section>
+                    <h2>About Me</h2>
+                    <p style="font-size: 13px; color: #475569;">{{ data.basics.summary }}</p>
+                </section>
+
+                <section>
+                    <h2>Experience</h2>
+                    {% for exp in data.experience %}
+                    <div class="experience-item">
+                        <h3>{{ exp.designation }}</h3>
+                        <div class="meta">{{ exp.company }} | {{ exp.tenure }}</div>
+                        <p style="font-size: 12px; margin-top: 5px;">{{ exp.description }}</p>
+                    </div>
+                    {% endfor %} section>
+
+                <section>
+                    <h2>Projects</h2>
+                    {% for proj in data.projects %}
+                    <div class="project-item">
+                        <h3>{{ proj.name }}</h3>
+                        <p style="font-size: 12px;">{{ proj.description }}</p>
+                    </div>
+                    {% endfor %}
+                </section>
+            </div>
+
+            <!-- Right Column: Skills & Info -->
+            <div class="column-right">
+                <section>
+                    <h2>Contact</h2>
+                    <div class="contact-item">📧 {{ data.basics.email }}</div>
+                    <div class="contact-item">📱 {{ data.basics.phone }}</div>
+                    {% if data.basics.location %}
+                    <div class="contact-item">📍 {{ data.basics.location }}</div>
+                    {% endif %}
+                </section>
+
+                <section>
+                    <h2>Technical Skills</h2>
+                    {% for skill in data.skills.technical %}
+                    <div class="skill-row">
+                        <div class="skill-name">{{ skill }}</div>
+                        <div class="skill-bar-bg"><div class="skill-bar-fill" style="width: 85%;"></div></div>
+                    </div>
+                    {% endfor %}
+                </section>
+
+                <section>
+                    <h2>Education</h2>
+                    {% for edu in data.education %}
+                    <div class="experience-item">
+                        <h3 style="font-size: 13px;">{{ edu.degree }}</h3>
+                        <div class="meta">{{ edu.institution }} ({{ edu.year }})</div>
+                    </div>
+                    {% endfor %}
+                </section>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

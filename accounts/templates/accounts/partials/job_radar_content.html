@@ -1,0 +1,70 @@
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+    
+    <!-- Job Cards List Area -->
+    <div class="lg:col-span-3 space-y-4">
+        {% if jobs %}
+            {% for job in jobs %}
+            <div class="stitch-card flex flex-col md:flex-row items-start md:items-center justify-between transition-all hover:-translate-y-1 group">
+                <div class="mb-4 md:mb-0">
+                    <h3 class="heading-2 group-hover:text-brand-600 transition-colors">{{ job.title }}</h3>
+                    <p class="text-sm text-slate-500 font-medium mb-1 tracking-wide">{{ job.company }} • {{ job.location }}</p>
+                    <div class="flex items-center gap-2 mt-3">
+                        <span class="bg-slate-100 text-slate-600 px-3 py-1 rounded-md text-xs font-bold">{{ job.salary_range|default:"Competitive" }}</span>
+                    </div>
+                </div>
+                <div class="flex flex-col items-end gap-3 shrink-0">
+                    {% if job.match_score >= 90 %}
+                        <div class="px-5 py-2 rounded-full bg-emerald-50 text-emerald-700 font-black text-xs tracking-widest ring-1 ring-emerald-300/50 shadow-sm flex items-center gap-2">
+                            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                            {{ job.match_score }}% MATCH
+                        </div>
+                    {% else %}
+                        <div class="px-5 py-2 rounded-full bg-brand-50 text-brand-700 font-black text-xs tracking-widest ring-1 ring-brand-300/50 shadow-sm">
+                            {{ job.match_score }}% MATCH
+                        </div>
+                    {% endif %}
+                    <button class="text-[10px] font-black bg-brand-600 text-white hover:bg-brand-700 px-4 py-2 rounded-lg transition-colors uppercase tracking-widest shadow-sm">Apply ↗</button>
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="stitch-card text-center py-16">
+                <div class="text-5xl mb-4 opacity-50">🛰️</div>
+                <h3 class="heading-2 text-slate-700">No signals found</h3>
+                <p class="text-slate-500 max-w-md mx-auto mt-2">We couldn't match any live jobs >85% against your current ATS score. Update your resume to boost matches.</p>
+                <a href="{% url 'resume_editor' %}" class="btn-primary inline-block mt-6">Optimize Resume</a>
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Market Pulse Sidebar -->
+    <div class="lg:col-span-1 space-y-4">
+        <h3 class="heading-2 text-slate-800 flex items-center gap-2">
+            <span class="w-2 h-6 rounded-full bg-brand-500 inline-block"></span>
+            Market Pulse
+        </h3>
+        
+        <div class="stitch-card space-y-5 bg-gradient-to-br from-white to-slate-50/50">
+            {% if trends %}
+                {% for trend in trends %}
+                <div class="bg-brand-50 border border-brand-100 text-brand-900 rounded-xl p-5 shadow-sm relative overflow-hidden group hover:ring-2 hover:ring-brand-400 transition-all">
+                    <div class="absolute -right-3 -top-3 text-6xl opacity-5 group-hover:scale-110 group-hover:opacity-10 transition-all">📈</div>
+                    <p class="text-xs font-semibold leading-relaxed relative z-10 text-slate-700">{{ trend.insight }}</p>
+                    
+                    {% if trend.suggested_action_url %}
+                    <div class="mt-4 relative z-10">
+                        <a href="{{ trend.suggested_action_url }}" class="inline-block bg-white text-brand-700 font-bold px-4 py-2 rounded-lg text-[10px] uppercase tracking-wider shadow-sm ring-1 ring-brand-200 hover:bg-brand-600 hover:text-white hover:ring-brand-600 transition-all w-full text-center">
+                            Take Action
+                        </a>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="text-center py-6">
+                    <p class="text-xs text-slate-400 font-medium italic">No market trends detected yet. Add skills to your resume.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>

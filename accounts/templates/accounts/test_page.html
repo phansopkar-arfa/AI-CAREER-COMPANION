@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ subject.name }} Test | Proctoring Active</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- face-api.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+        .sticky-header {
+            position: sticky; top: 0; z-index: 50;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+        }
+        .proctoring-video {
+            transform: scaleX(-1); /* Mirror the video */
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800">
+
+<!-- Top Warning Banner -->
+<div id="proctoring-alert" class="hidden bg-red-600 text-white p-3 text-center font-bold tracking-wider fixed top-0 w-full z-[100] shadow-lg transition-all duration-300">
+    <span id="proctoring-message">Warning: Proctoring Alert!</span>
+</div>
+
+<div class="max-w-6xl mx-auto px-4 py-8">
+
+    <!-- Header & Proctoring Panel -->
+    <div class="sticky-header flex flex-col md:flex-row justify-between items-center mb-8 p-6 bg-white shadow-xl rounded-2xl border border-gray-100 mt-8">
+        <div>
+            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">
+                {{ subject.name }}
+            </h1>
+            <p class="text-gray-500 mt-1 font-medium flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-green-500 inline-block animate-pulse"></span>
+                Proctoring Active
+            </p>
+        </div>
+
+        <div class="flex items-center gap-6 mt-4 md:mt-0">
+            <!-- Camera Preview -->
+            <div class="relative w-32 h-24 bg-gray-900 rounded-lg overflow-hidden border-2 border-gray-200 shadow-inner">
+                <video id="videoElement" class="proctoring-video w-full h-full object-cover" autoplay muted playsinline></video>
+                <div id="camera-status" class="absolute inset-0 flex items-center justify-center text-xs text-center text-white bg-black/60 hidden">
+                    Camera<br>Disabled
+                </div>
+            </div>
+
+            <!-- Timer -->
+            <div class="bg-indigo-50 border border-indigo-100 text-indigo-700 px-6 py-4 rounded-xl text-center shadow-sm">
+                <p class="text-xs font-bold uppercase tracking-widest mb-1">Time Left</p>
+                <div id="timer" class="text-3xl font-mono font-bold tracking-tight">30:00</div>
+            </div>
+            
+            <button type="button" onclick="document.getElementById('testForm').submit();" class="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-8 py-4 rounded-xl font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all shadow-md">
+                End Test
+            </button>
+        </div>
+    </div>
+
+    <!-- Instructions / Status -->
+    <div id="status-panel" class="mb-8 p-4 bg-yellow-50 border border-yellow-200 text-yellow-800 rounded-xl hidden text-sm font-medium">
+        Initializing AI Proctoring... Please ensure your face is clearly visible.
+    </div>
+
+    <!-- Questions Form -->
+    <form id="testForm" method="POST" action="{% url 'submit_test' subject.slug %}">
+        {% csrf_token %}
+        <input type="hidden" name="violations" id="violations_count" value="0">
+        <input type="hidden" name="time_taken" id="time_taken" value="0">
+        <input type="hidden" name="tab_switches" id="tab_switches_count" value="0">
+        <input type="hidden" name="auto_submitted" id="auto_submitted_flag" value="false">
+
+        <div class="space-y-6">
+            {% for question in questions %}
+            <div class="p-8 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
+                <div class="flex gap-4">
+                    <div class="flex-shrink-0 w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-lg">
+                        {{ forloop.counter }}
+                    </div>
+                    <div class="flex-grow">
+                        <p class="text-lg font-semibold text-gray-800 mb-6 mt-1">
+                            {{ question.question_text }}
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <label class="flex items-center p-4 border rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition-colors">
+                                <input type="radio" name="{{ question.id }}" value="A" class="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-3 text-gray-700">{{ question.option_a }}</span>
+                            </label>
+                            <label class="flex items-center p-4 border rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition-colors">
+                                <input type="radio" name="{{ question.id }}" value="B" class="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-3 text-gray-700">{{ question.option_b }}</span>
+                            </label>
+                            <label class="flex items-center p-4 border rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition-colors">
+                                <input type="radio" name="{{ question.id }}" value="C" class="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-3 text-gray-700">{{ question.option_c }}</span>
+                            </label>
+                            <label class="flex items-center p-4 border rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-200 transition-colors">
+                                <input type="radio" name="{{ question.id }}" value="D" class="w-5 h-5 text-indigo-600 border-gray-300 focus:ring-indigo-500">
+                                <span class="ml-3 text-gray-700">{{ question.option_d }}</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="mt-10 mb-20 flex justify-center">
+            <button type="submit" class="bg-gray-900 text-white px-12 py-4 rounded-xl font-bold text-lg hover:shadow-xl hover:bg-gray-800 transition-all w-full max-w-md">
+                Submit Test & Finish
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Scripts -->
+<script>
+    // Configuration
+    const TEST_DURATION_MINUTES = 30;
+    const TOTAL_SECONDS = parseInt("{{ time_remaining_seconds|default:'1800' }}", 10);
+    let timeRemaining = TOTAL_SECONDS;
+    let violations = 0;
+    let tabSwitches = 0;
+    let lastTabSwitchTime = 0;
+    
+    // UI Elements
+    const timerElement = document.getElementById("timer");
+    const testForm = document.getElementById("testForm");
+    const violationsInput = document.getElementById("violations_count");
+    const timeTakenInput = document.getElementById("time_taken");
+    const alertBox = document.getElementById("proctoring-alert");
+    const alertMsg = document.getElementById("proctoring-message");
+    const video = document.getElementById("videoElement");
+    const camStatus = document.getElementById("camera-status");
+    const statusPanel = document.getElementById("status-panel");
+
+    // Helper: Show Warning
+    function showWarning(message) {
+        violations++;
+        violationsInput.value = violations;
+        alertMsg.innerText = message;
+        alertBox.classList.remove("hidden");
+        setTimeout(() => alertBox.classList.add("hidden"), 3000);
+    }
+
+    // Timer Logic
+    const countdown = setInterval(function() {
+        timeRemaining--;
+        let minutes = Math.floor(timeRemaining / 60);
+        let seconds = timeRemaining % 60;
+        
+        timerElement.innerText = 
+            String(minutes).padStart(2, '0') + ":" + 
+            String(seconds).padStart(2, '0');
+            
+        timeTakenInput.value = TOTAL_SECONDS - timeRemaining;
+
+        if (timeRemaining <= 0) {
+            clearInterval(countdown);
+            document.getElementById("auto_submitted_flag").value = "true";
+            alert("Time is up! Your test will be auto-submitted.");
+            window.onbeforeunload = null;
+            testForm.submit();
+        }
+    }, 1000);
+
+    // Tab-Switch Prevention
+    function handleFocusLoss() {
+        const now = Date.now();
+        if (now - lastTabSwitchTime < 1000) return; // Prevent double trigger within 1s
+        lastTabSwitchTime = now;
+        
+        tabSwitches++;
+        document.getElementById("tab_switches_count").value = tabSwitches;
+        
+        if (tabSwitches >= 3) {
+            document.getElementById("auto_submitted_flag").value = "true";
+            alert("Maximum tab switches reached! Your test is being automatically submitted.");
+            window.onbeforeunload = null;
+            testForm.submit();
+        } else {
+            showWarning(`Focus lost or tab switched! Warning ${tabSwitches} of 3 before auto-submit.`);
+        }
+    }
+
+    document.addEventListener("visibilitychange", function() {
+        if (document.hidden) handleFocusLoss();
+    });
+    
+    window.addEventListener("blur", handleFocusLoss);
+
+    // Face-API & Camera Setup
+    async function initProctoring() {
+        try {
+            statusPanel.classList.remove("hidden");
+            statusPanel.innerText = "Loading AI models... please wait.";
+            
+            // Load models from standard CDN (using tinyFaceDetector for performance)
+            const MODEL_URL = 'https://vladmandic.github.io/face-api/model/';
+            await faceapi.nets.tinyFaceDetector.loadFromUri(MODEL_URL);
+            
+            statusPanel.innerText = "Models loaded. Requesting camera access...";
+
+            // Request Camera
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+                video.srcObject = stream;
+                statusPanel.classList.add("hidden");
+                
+                // Start tracking when video plays
+                video.addEventListener('play', () => {
+                    setInterval(async () => {
+                        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions());
+                        
+                        if (detections.length === 0) {
+                            showWarning("No face detected! Please stay in front of the camera.");
+                        } else if (detections.length > 1) {
+                            showWarning("Multiple faces detected! This violation is recorded.");
+                        }
+                    }, 3000); // Check every 3 seconds
+                });
+
+            } catch (cameraError) {
+                console.warn("Camera access denied or unavailable.");
+                camStatus.classList.remove("hidden");
+                statusPanel.classList.remove("hidden");
+                statusPanel.className = "mb-8 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl font-medium";
+                statusPanel.innerText = "Camera access denied. Your test will continue, but lack of camera feed is recorded as a warning.";
+                showWarning("Camera access required for official verified results.");
+            }
+
+        } catch (error) {
+            console.error("Proctoring initialization failed:", error);
+            statusPanel.innerText = "AI Proctoring failed to load, basic session tracking active.";
+        }
+    }
+
+    // Start Proctoring on Page Load
+    window.onload = () => {
+        initProctoring();
+        // Prevent refresh warning (optional, useful for anti-cheat)
+        window.onbeforeunload = function() {
+            if(timeRemaining > 0) return "Refreshing will clear your answers. Are you sure?";
+        };
+        testForm.onsubmit = function() {
+            window.onbeforeunload = null;
+        };
+    };
+
+</script>
+
+</body>
+</html>

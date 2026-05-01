@@ -1,0 +1,84 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Assessment Suite | Track Selection{% endblock %}
+{% block header_title %}Assessments{% endblock %}
+
+{% block content %}
+<div class="p-8 max-w-7xl mx-auto space-y-12 pb-24">
+    
+    <!-- Hero Header -->
+    <div class="max-w-3xl space-y-4">
+        <h1 class="heading-1">Assessment Tracking</h1>
+        <p class="text-slate-500 text-lg leading-relaxed">Choose a specialized track to evaluate your technical edge. Every assessment is proctored with real-time face detection and behavioral analysis.</p>
+    </div>
+
+    <!-- Category Section: Technical -->
+    <div class="space-y-8">
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-brand-600 rounded-full"></div>
+            <h3 class="heading-2">Technical Core</h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {% for subject in technical_subjects %}
+            <a href="{% url 'test_info' subject.slug %}" class="stitch-card flex flex-col items-center justify-center text-center group hover:border-brand-300 relative overflow-hidden h-44">
+                <div class="absolute inset-0 bg-brand-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <span class="text-4xl mb-4 block group-hover:scale-125 transition-transform duration-500">{{ subject.icon|default:'💻' }}</span>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest group-hover:text-brand-600 transition-colors">{{ subject.name }}</h4>
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-full py-20 text-center stitch-card bg-slate-50/50 border-dashed">
+                <p class="text-sm font-bold text-slate-400 italic">Technical assessments currently unavailable.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Category Section: Placements -->
+    <div class="space-y-8">
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-amber-500 rounded-full"></div>
+            <h3 class="heading-2">Company Placements</h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {% for subject in company_subjects %}
+            <a href="{% url 'test_info' subject.slug %}" class="stitch-card flex flex-col items-center justify-center text-center group hover:border-amber-300 relative overflow-hidden h-44">
+                <div class="absolute inset-0 bg-amber-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <span class="text-4xl mb-4 block group-hover:scale-125 transition-transform duration-500">{{ subject.icon|default:'🏢' }}</span>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest group-hover:text-amber-600 transition-colors">{{ subject.name }}</h4>
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-full py-20 text-center stitch-card bg-slate-50/50 border-dashed">
+                <p class="text-sm font-bold text-slate-400 italic">No company-specific tests available.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Category Section: Aptitude -->
+    <div class="space-y-8">
+        <div class="flex items-center gap-3">
+            <div class="w-1.5 h-8 bg-indigo-500 rounded-full"></div>
+            <h3 class="heading-2">General Reasoning</h3>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+            {% for subject in aptitude_subjects %}
+            <a href="{% url 'test_info' subject.slug %}" class="stitch-card flex flex-col items-center justify-center text-center group hover:border-indigo-300 relative overflow-hidden h-44">
+                <div class="absolute inset-0 bg-indigo-50/30 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                <div class="relative z-10">
+                    <span class="text-4xl mb-4 block group-hover:scale-125 transition-transform duration-500">{{ subject.icon|default:'🧠' }}</span>
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest group-hover:text-indigo-600 transition-colors">{{ subject.name }}</h4>
+                </div>
+            </a>
+            {% empty %}
+            <div class="col-span-full py-20 text-center stitch-card bg-slate-50/50 border-dashed">
+                <p class="text-sm font-bold text-slate-400 italic">Aptitude tracks not set.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

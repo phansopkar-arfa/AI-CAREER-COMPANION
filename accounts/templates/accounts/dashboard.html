@@ -1,0 +1,277 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Global Analytics | Performance Dashboard{% endblock %}
+{% block header_title %}Global Analytics{% endblock %}
+
+{% block content %}
+<div class="p-8 max-w-[1400px] mx-auto space-y-8 pb-24">
+    
+    <!-- TOP SECTION: Profile Header (Sync with old structure) -->
+    <div class="stitch-card bg-gradient-to-br from-brand-900 to-brand-700 min-h-[300px] p-8 text-white relative overflow-hidden border-none rounded-[2rem] shadow-xl">
+        <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(circle at 2px 2px, white 1px, transparent 0); background-size: 32px 32px;"></div>
+        
+        <div class="relative z-10 flex flex-col md:flex-row justify-between items-center h-full gap-8">
+            <div class="flex-1 space-y-6">
+                <div>
+                   <h2 class="text-4xl font-black font-outfit uppercase tracking-tight">{{ user.name|default:user.email }}</h2>
+                   <p class="text-brand-200 font-bold text-sm tracking-widest uppercase mt-2">Student Academic Profile</p>
+                </div>
+                
+                <div class="grid grid-cols-2 md:grid-cols-3 gap-6 bg-white/5 border border-white/10 p-5 rounded-2xl backdrop-blur-md">
+                    <div>
+                        <p class="text-[10px] font-black text-brand-300 uppercase tracking-widest mb-1">Registration</p>
+                        <p class="text-base font-bold">{{ user.registration|default:"N/A" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-brand-300 uppercase tracking-widest mb-1">Branch</p>
+                        <p class="text-base font-bold">{{ user.branch|default:"N/A" }}</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] font-black text-brand-300 uppercase tracking-widest mb-1">Email Address</p>
+                        <p class="text-base font-bold truncate max-w-[200px]">{{ user.email }}</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <!-- MAIN BODY: 2 Columns (Left: Test Dashboard, Right: Reservoir) -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- LEFT PORTION: Test Dashboard (Sync with old structure) -->
+        <div class="lg:col-span-2 space-y-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h3 class="heading-1">Performance Analytics</h3>
+                    <p class="text-slate-500 text-sm">Comprehensive performance trends and test evaluations.</p>
+                </div>
+                <div class="flex gap-4">
+                    <span class="flex flex-col items-end">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Avg Accuracy</span>
+                        <span class="text-xl font-black text-brand-600 font-outfit">{{ average_accuracy|floatformat:1 }}%</span>
+                    </span>
+                    <div class="w-px h-8 bg-slate-200"></div>
+                    <span class="flex flex-col items-end">
+                        <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Tests</span>
+                        <span class="text-xl font-black text-slate-900 font-outfit">{{ total_tests }}</span>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="stitch-card flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl">🎯</div>
+                    <div>
+                        <p class="text-base font-black text-slate-800">{{ best_score|floatformat:1 }}%</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Top Benchmarking</p>
+                    </div>
+                </div>
+                <div class="stitch-card flex items-center gap-5">
+                    <div class="w-12 h-12 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center text-2xl">🚨</div>
+                    <div>
+                        <p class="text-base font-black text-slate-800">{{ total_tab_switches }}</p>
+                        <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Proctoring Alerts</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Test History Table -->
+            <div class="stitch-card p-0 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-50 bg-slate-50/50">
+                    <h4 class="text-xs font-black text-slate-800 uppercase tracking-widest">Assessment History</h4>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="bg-white border-b border-slate-50 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">
+                                <th class="py-4 px-6">Assessment</th>
+                                <th class="py-4 px-6 text-center">Date</th>
+                                <th class="py-4 px-6 text-center">Status</th>
+                                <th class="py-4 px-6 text-right">Accuracy</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-50">
+                            {% for result in results %}
+                            <tr class="hover:bg-slate-50/50 transition-colors group">
+                                <td class="py-4 px-6">
+                                    <p class="text-sm font-bold text-slate-800 group-hover:text-brand-600">{{ result.subject.name }}</p>
+                                </td>
+                                <td class="py-4 px-6 text-center text-[11px] font-bold text-slate-500 uppercase">{{ result.date|date:"M d, Y" }}</td>
+                                <td class="py-4 px-6 text-center">
+                                    {% if result.auto_submitted %}
+                                        <span class="bg-rose-100 text-rose-700 px-2 py-0.5 rounded text-[10px] font-black">AUTO</span>
+                                    {% else %}
+                                        <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded text-[10px] font-black">DONE</span>
+                                    {% endif %}
+                                </td>
+                                <td class="py-4 px-6 text-right font-black text-brand-600">{{ result.percentage }}%</td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="4" class="py-12 text-center text-slate-400 italic text-sm">No assessments tracked.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT PORTION: Interview Analytics (Reservoir Area) -->
+        <div class="lg:col-span-1 border-2 border-slate-900 bg-slate-900 rounded-[2rem] min-h-[600px] relative overflow-hidden shadow-2xl">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+            <div class="relative z-10 p-6 space-y-5 h-full flex flex-col" id="reservoir-area">
+
+                <!-- Header -->
+                <div class="text-center pt-2">
+                    <div class="w-12 h-12 bg-brand-600/20 rounded-2xl flex items-center justify-center text-xl mx-auto mb-3">🎤</div>
+                    <h4 class="text-[10px] font-black text-white uppercase tracking-[0.35em] mb-1">Interview Analytics</h4>
+                    <p class="text-brand-300/50 text-[9px] font-bold uppercase tracking-widest">Mock Interview Performance</p>
+                </div>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-black text-white font-outfit" id="rv-total">—</p>
+                        <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mt-1">Interviews</p>
+                    </div>
+                    <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-black text-brand-400 font-outfit" id="rv-avg">—</p>
+                        <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mt-1">Avg Score</p>
+                    </div>
+                    <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-black text-brand-300 font-outfit" id="rv-high">—</p>
+                        <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mt-1">Best Score</p>
+                    </div>
+                    <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-3 text-center">
+                        <p class="text-2xl font-black text-brand-200 font-outfit" id="rv-duration">—</p>
+                        <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mt-1">Avg Mins</p>
+                    </div>
+                </div>
+
+                <!-- Score Trend -->
+                <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-4">
+                    <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mb-3">Score Trend</p>
+                    <div class="flex items-end gap-1 h-16" id="rv-trend">
+                        <!-- Bars injected by JS -->
+                        <div class="flex-1 bg-brand-800/30 rounded-sm h-full animate-pulse"></div>
+                        <div class="flex-1 bg-brand-800/30 rounded-sm h-3/4 animate-pulse"></div>
+                        <div class="flex-1 bg-brand-800/30 rounded-sm h-1/2 animate-pulse"></div>
+                    </div>
+                </div>
+
+                <!-- Score Distribution -->
+                <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-4">
+                    <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mb-3">Score Distribution</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] font-bold text-red-400 w-12">Low</span>
+                            <div class="flex-1 bg-brand-800/20 rounded-full h-2 overflow-hidden"><div class="h-full bg-red-500/80 rounded-full transition-all duration-700" id="rv-dist-low" style="width:0%"></div></div>
+                            <span class="text-[9px] font-bold text-brand-300/50 w-5 text-right" id="rv-dist-low-n">0</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] font-bold text-brand-300 w-12">Mid</span>
+                            <div class="flex-1 bg-brand-800/20 rounded-full h-2 overflow-hidden"><div class="h-full bg-brand-400 rounded-full transition-all duration-700" id="rv-dist-mid" style="width:0%"></div></div>
+                            <span class="text-[9px] font-bold text-brand-300/50 w-5 text-right" id="rv-dist-mid-n">0</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-[9px] font-bold text-brand-200 w-12">High</span>
+                            <div class="flex-1 bg-brand-800/20 rounded-full h-2 overflow-hidden"><div class="h-full bg-brand-300 rounded-full transition-all duration-700" id="rv-dist-high" style="width:0%"></div></div>
+                            <span class="text-[9px] font-bold text-brand-300/50 w-5 text-right" id="rv-dist-high-n">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domain Breakdown -->
+                <div class="bg-brand-950/40 border border-brand-800/30 rounded-xl p-4 flex-1">
+                    <p class="text-[8px] font-black text-brand-300/50 uppercase tracking-widest mb-3">Domains Practiced</p>
+                    <div class="space-y-2" id="rv-domains">
+                        <p class="text-[10px] text-brand-300/30 italic">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Face Violations -->
+                <div class="flex items-center justify-between bg-brand-950/40 border border-brand-800/30 rounded-xl px-4 py-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-sm">👁️</span>
+                        <span class="text-[9px] font-black text-brand-300/50 uppercase tracking-widest">Face Violations</span>
+                    </div>
+                    <span class="text-sm font-black text-red-400 font-outfit" id="rv-face">0</span>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function() {
+    async function loadReservoirData() {
+        try {
+            const res = await fetch('/mock-interview/api/dashboard/');
+            const json = await res.json();
+            if (json.status !== 'success') return;
+            const d = json.dashboard;
+
+            // Stats
+            document.getElementById('rv-total').textContent = d.total_interviews || '0';
+            document.getElementById('rv-avg').textContent = d.average_score ? d.average_score.toFixed(1) : '0.0';
+            document.getElementById('rv-high').textContent = d.highest_score ? d.highest_score.toFixed(1) : '0.0';
+            document.getElementById('rv-duration').textContent = d.avg_duration_mins || '0';
+            document.getElementById('rv-face').textContent = d.total_face_violations || '0';
+
+            // Score Trend Bars
+            const trendEl = document.getElementById('rv-trend');
+            if (d.trend && d.trend.length > 0) {
+                const maxScore = 10;
+                trendEl.innerHTML = d.trend.map(t => {
+                    const pct = Math.max(5, (t.score / maxScore) * 100);
+                    const color = t.score >= 7 ? 'bg-brand-300' : t.score >= 4 ? 'bg-brand-500' : 'bg-brand-700';
+                    return `<div class="flex-1 ${color} rounded-sm transition-all duration-500 opacity-80 hover:opacity-100" style="height:${pct}%" title="${t.date}: ${t.score}/10"></div>`;
+                }).join('');
+            } else {
+                trendEl.innerHTML = '<p class="text-[10px] text-slate-600 italic w-full text-center">No data yet</p>';
+            }
+
+            // Score Distribution
+            const total = (d.score_distribution.low + d.score_distribution.mid + d.score_distribution.high) || 1;
+            document.getElementById('rv-dist-low').style.width = ((d.score_distribution.low / total) * 100) + '%';
+            document.getElementById('rv-dist-mid').style.width = ((d.score_distribution.mid / total) * 100) + '%';
+            document.getElementById('rv-dist-high').style.width = ((d.score_distribution.high / total) * 100) + '%';
+            document.getElementById('rv-dist-low-n').textContent = d.score_distribution.low;
+            document.getElementById('rv-dist-mid-n').textContent = d.score_distribution.mid;
+            document.getElementById('rv-dist-high-n').textContent = d.score_distribution.high;
+
+            // Domains
+            const domainsEl = document.getElementById('rv-domains');
+            if (d.domain_breakdown && d.domain_breakdown.length > 0) {
+                domainsEl.innerHTML = d.domain_breakdown.slice(0, 5).map(item =>
+                    `<div class="flex items-center justify-between">
+                        <span class="text-[10px] font-bold text-slate-300 truncate mr-2">${item.domain}</span>
+                        <span class="text-[10px] font-black text-brand-400">${item.count}</span>
+                    </div>`
+                ).join('');
+            } else {
+                domainsEl.innerHTML = '<p class="text-[10px] text-slate-600 italic">No interviews yet</p>';
+            }
+
+        } catch (err) {
+            console.error('Failed to load reservoir data:', err);
+        }
+    }
+
+    // Load on page ready
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', loadReservoirData);
+    } else {
+        loadReservoirData();
+    }
+})();
+</script>
+{% endblock %}
